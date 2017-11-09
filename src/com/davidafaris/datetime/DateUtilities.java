@@ -132,6 +132,7 @@ public class DateUtilities {
 	}
 	/**
 	 * Returns a String relating to a Duration object created from the total amount of time in milliseconds
+	 * In the format [Hours] Hours [Minutes] Minutes [Seconds] Seconds
 	 * @param totalTime the amount of milliseconds in the duration
 	 * @return a String relating to a duration object created by an amount of milliseconds
 	 * @throws IllegalArgumentException if totalTime is less than zero
