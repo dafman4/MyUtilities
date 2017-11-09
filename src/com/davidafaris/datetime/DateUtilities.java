@@ -27,9 +27,7 @@ public class DateUtilities {
 	 * @return An Instance of this class
 	 */
 	public static DateUtilities getInstance(){
-		if(instance == null)
-			instance = new DateUtilities();
-		return instance;
+		return instance == null ? new DateUtilities() : instance;
 	}
 	/**
 	 * Returns a basic Month/Day/Year format in String form for a LocalDate object
