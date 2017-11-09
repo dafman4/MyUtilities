@@ -111,38 +111,58 @@ public class DateUtilities {
 				hoursMinutesSeconds[0], hoursMinutesSeconds[1], hoursMinutesSeconds[2]);
 	}
 	/**
-	 * Returns the absolute difference in milliseconds between the input LocalDateTime objects
+	 * Returns the absolute difference in Seconds between the input LocalDateTime objects
 	 * @param date1 the first LocalDateTime Object
 	 * @param date2 The Second LocalDateTime Object
-	 * @return a Long value symbolic of the absolute difference in milliseconds between the input LocalDateTimes
+	 * @return a Long value symbolic of the absolute difference in Seconds between the input LocalDateTimes
 	 */
-	public long getMillisDifferenceBetweenLocalDateTimes(LocalDateTime date1, LocalDateTime date2){
-		return Math.abs(date1.until(date2, ChronoUnit.MILLIS));
+	public long getSecondsDifferenceBetweenLocalDateTimes(LocalDateTime date1, LocalDateTime date2){
+		return Math.abs(date1.until(date2, ChronoUnit.SECONDS));
 	}
 	/**
-	 * Returns the absolute difference in milliseconds between the input LocalDate objects
+	 * Returns the absolute difference in Seconds between the input LocalDate objects
 	 * @param date1 The First LocalDate Object
 	 * @param date2 The Second LocalDate Object
-	 * @return a long value symbolic of the absolute difference in milliseconds between the input LocalDates
+	 * @return a long value symbolic of the absolute difference in Seconds between the input LocalDates
 	 */
-	public long getMillitsDifferenceBetweenLocalDates(LocalDate date1, LocalDate date2){
-		return Math.abs(date1.until(date2, ChronoUnit.MILLIS));
+	public long getSecondsDifferenceBetweenLocalDates(LocalDate date1, LocalDate date2){
+		return Math.abs(date1.until(date2, ChronoUnit.SECONDS));
 	}
 	/**
-	 * Returns a String relating to a Duration object created from the total amount of time in milliseconds
+	 * Returns a String relating to a Duration object created from the total amount of time in Seconds
 	 * In the format [Hours] Hours [Minutes] Minutes [Seconds] Seconds
-	 * @param totalTime the amount of milliseconds in the duration
-	 * @return a String relating to a duration object created by an amount of milliseconds
+	 * @param totalTime the amount of Seconds in the duration
+	 * @return a String relating to a duration object created by an amount of Seconds
 	 * @throws IllegalArgumentException if totalTime is less than zero
 	 */
-	public String getDurationAsStringOfTimeFromMilliseconds(long totalTime){
+	public String getDurationAsStringOfTimeFromSeconds(long totalTime){
 		if(totalTime <0)
 			throw new IllegalArgumentException("Total Time must be greater than or equal to 0!");
 		String ret = "";
-		Duration time = Duration.ofMillis(totalTime);
+		Duration time = Duration.ofSeconds(totalTime);
 		ret = time.toString().substring(2).replaceAll("H", " Hours " ).replaceAll("M", " Minutes ").replaceAll("S", " Seconds");
 		
 		return ret;
+	}
+	/**
+	 * Creates and returns a Duration Object representative of a total time in Seconds
+	 * @param totalTime The amount of time being converted to a Duration object
+	 * @return A Duration object with a duration equal to totalTime
+	 */
+	public Duration getDurationOfTimeFromSeconds(long totalTime){
+		return Duration.ofSeconds(totalTime);
+	}
+
+	/**
+	 * Creates a Duration Object with a duration equal to the input durations
+	 * @param durations an input amount of durations (comma separated, array, or list)
+	 * @return a Duration Object with a duration equal to all input durations
+	 */
+	public Duration addDurationsToNewDuration(Duration... durations){
+		long totalSeconds = 0;
+		for(Duration d: durations)
+			totalSeconds += d.get(ChronoUnit.SECONDS);
+		return Duration.ofSeconds(totalSeconds);
 	}
 	
 	private int[] getHoursMinutesSecondsOfFormattedString(String s){
