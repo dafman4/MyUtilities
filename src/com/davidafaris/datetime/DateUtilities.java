@@ -23,7 +23,6 @@ public class DateUtilities {
 	}
 	/**
 	 * A Method that returns an instance of DateUtilities and creates one if none exists.
-	 * 
 	 * @return An Instance of this class
 	 */
 	public static DateUtilities getInstance(){
