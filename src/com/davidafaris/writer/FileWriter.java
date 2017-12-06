@@ -30,7 +30,7 @@ public final class FileWriter implements Writer{
 		try{
 			out = new PrintWriter(new java.io.FileWriter(file));
 			for(String s : formatStyle.encode(strings))
-				out.print(s);
+				out.println(s);
 		}catch(IOException e){
 			throw new Exception("Error openening file",e);
 		}finally{
