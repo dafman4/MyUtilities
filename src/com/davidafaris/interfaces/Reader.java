@@ -3,6 +3,7 @@ package com.davidafaris.interfaces;
 
 
 import java.util.List;
+import java.util.Map;
 /**
  * This interface is designed to allow for a
  * simple and flexible reader system
@@ -17,5 +18,5 @@ public interface Reader {
 	 * @return a list of strings read from somewhere or something
 	 * @throws exception in order to easily allow for many types of things to be read from (custom error messages recommended)
 	 */
-	public List<String> read() throws Exception;
+	public Map<String,String> read() throws Exception;
 }

@@ -6,7 +6,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 /**
  * A reader that reads a file at the input file location according to the input formatter style
  * @author David
@@ -21,7 +23,7 @@ public final class FileReader implements Reader{
 	}
 
 	@Override
-	public List<String> read() throws Exception{
+	public Map<String,String> read() throws Exception{
 		File file = new File(fileLocation);
 		BufferedReader in = null;
 		try{

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 public final class FileWriter implements Writer{
 	private Formatter formatStyle;
@@ -22,7 +23,7 @@ public final class FileWriter implements Writer{
 	}
 	
 	@Override
-	public void write(List<String> strings) throws Exception {
+	public void write(Map<String,String> strings) throws Exception {
 		if(strings != null)
 			throw new IllegalArgumentException("Strings cannot be null!");
 		File file = new File(fileLocation);

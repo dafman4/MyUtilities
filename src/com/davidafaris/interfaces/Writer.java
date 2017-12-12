@@ -1,7 +1,7 @@
 
 package com.davidafaris.interfaces;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * This interface is designed to allow for a
@@ -18,5 +18,5 @@ public interface Writer {
 	 * @param string a string to be implemented in whatever way the implementation sees fit
 	 * @throws Exception in order to allow for many different type of writing locations (files/console/gui/etc.)
 	 */
-	public void write(List<String> strings) throws Exception;
+	public void write(Map<String,String> lines) throws Exception;
 }
