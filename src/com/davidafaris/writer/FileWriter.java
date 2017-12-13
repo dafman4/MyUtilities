@@ -24,7 +24,7 @@ public final class FileWriter implements Writer{
 	
 	@Override
 	public void write(Map<String,String> strings) throws Exception {
-		if(strings != null)
+		if(strings == null)
 			throw new IllegalArgumentException("Strings cannot be null!");
 		File file = new File(fileLocation);
 		PrintWriter out = null;

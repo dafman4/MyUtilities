@@ -164,6 +164,10 @@ public class DateUtilities {
 		return Duration.ofSeconds(totalSeconds);
 	}
 	
+	public long getMinutesWithinDuration(Duration d){
+		return d.getSeconds()/60;
+	}
+	
 	private int[] getHoursMinutesSecondsOfFormattedString(String s){
 		int[] ret = new int[3];
 		if(s == null || s.isEmpty()){
@@ -184,7 +188,6 @@ public class DateUtilities {
 	}
 	
 	private int[] getYearMonthDayOfFormattedString(String s) {
-		
 		if(s == null || s.isEmpty())
 			throw new IllegalArgumentException("Formatted String cannot be null or empty!");
 		if(!s.contains("/"))
@@ -202,7 +205,6 @@ public class DateUtilities {
 		ret[2] = Integer.valueOf(parts[2]);
 		return ret;
 	}
-	
 	
 	private boolean checkIfStringIsInteger(String s){
 		try{
