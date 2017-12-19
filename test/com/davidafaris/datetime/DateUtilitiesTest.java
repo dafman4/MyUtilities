@@ -25,6 +25,7 @@ public class DateUtilitiesTest {
 	
 	@After
 	public void tearDown() {
+		du = null;
 	}
 	
 	

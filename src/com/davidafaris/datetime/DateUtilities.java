@@ -164,6 +164,11 @@ public class DateUtilities {
 		return Duration.ofSeconds(totalSeconds);
 	}
 	
+	/**
+	 * gets the minutes that exist within a given duration
+	 * @param d the duration being converted
+	 * @return the amount of minutes within the duration
+	 */
 	public long getMinutesWithinDuration(Duration d){
 		return d.getSeconds()/60;
 	}
