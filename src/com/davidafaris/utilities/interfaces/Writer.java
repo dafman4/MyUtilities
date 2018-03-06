@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * This interface is designed to allow for a
- * simple and flexible writer system
+ * simple and flexible writer system when combined with the Formatter interface
  * 
  * @author David A. Faris, dfaris@my.wctc.edu
  * @version 1.0

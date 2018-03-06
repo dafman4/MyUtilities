@@ -85,6 +85,7 @@ public final class DateUtilities {
 	 * @param formattedString The formatted string in the format Year/Month/Day
 	 * @return a LocalDate Object created from the formatted string
 	 * @throws IllegalArgumentException if the string is null or empty, or contain EXACTLY 2 groups of forward slashes (/)
+	 * @throws Exception throws an exception if any unexpected errors happen
 	 */
 	public LocalDate getLocalDateFromFormattedString(String formattedString) throws IllegalArgumentException, Exception{
 		int[] yearMonthDay = getYearMonthDayOfFormattedString(formattedString);
@@ -97,6 +98,7 @@ public final class DateUtilities {
 	 * @return a LocalDateTime object from the formatted string
 	 * @throws IllegalArgumentException if the any input is null or empty, if the string does not contain a space, forward slashes (/),
 	 * and/or colons (:) or if the separated strings using forward slashes and colons cannot be transformed into numbers
+	 * @throws Exception if there is an error while attempting to parse the value of the formatted string
 	 */
 	public LocalDateTime getLocalDateTimeFromFormattedString(String formattedString) throws IllegalArgumentException, Exception{
 		if(formattedString == null || formattedString.isEmpty() || !formattedString.contains(" "))

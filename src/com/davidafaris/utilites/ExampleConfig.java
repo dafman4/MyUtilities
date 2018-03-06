@@ -78,7 +78,7 @@ public class ExampleConfig implements ConfigInformationStrategy<String> {
 		try{
 			properties = fr.read();
 		}catch(Exception e){
-			throw new SeriousException("There was an error updating properties!");
+			throw new SeriousException("There was an error updating properties!\nPossibly with the file. Has it been tampered with, or was it edited while this was running?");
 		}
 	}
 }

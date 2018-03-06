@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
- * A reader that reads a file at the input file location according to the input formatter style
+ * A reader that reads a file at the input file location and decodes according to the input formatter style
  * @author David
  */
 public final class FileReader implements Reader<String,String>{
@@ -47,24 +47,36 @@ public final class FileReader implements Reader<String,String>{
 			}
 		}
 	}
-	
+	/**
+	 * returns the location of the file as a string
+	 * @return string representing the file location
+	 */
 	public String getFileLocation() {
 		return fileLocation;
 	}
-
+	/**
+	 * sets the location of the file
+	 * @param fileLocation the new location of a file to be read
+	 */
 	public void setFileLocation(String fileLocation) {
 		if(fileLocation == null || fileLocation.isEmpty())
 			throw new IllegalArgumentException("File Location cannot be null or empty!");
 		this.fileLocation = fileLocation;
 	}
-
+	/**
+	 * An object telling the class how to decode a file
+	 * @param f the new formatting method of a file
+	 */
 	public void setFormatStyle(Formatter f){
 		if(f == null)
 			throw new IllegalArgumentException("F cannot be null!");
 		formatStyle = f;
 	}
-	
-	public Formatter getFormatStyle(Formatter f){
+	/**
+	 * Returns the currently used format stye object
+	 * @return an object representing the method of decoding a file
+	 */
+	public Formatter getFormatStyle(){
 		return formatStyle;
 	}
 }

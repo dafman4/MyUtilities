@@ -5,7 +5,7 @@ package com.davidafaris.utilities.interfaces;
 import java.util.Map;
 /**
  * This interface is designed to allow for a
- * simple and flexible reader system
+ * simple and flexible reader system when combined with the Formatter interface
  * 
  * @author David A. Faris, dfaris@my.wctc.edu
  * @version 1.0
