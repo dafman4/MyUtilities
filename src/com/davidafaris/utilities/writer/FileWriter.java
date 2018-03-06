@@ -1,10 +1,10 @@
 
-package com.davidafaris.writer;
+package com.davidafaris.utilities.writer;
 
 // Author David
 
-import com.davidafaris.interfaces.Formatter;
-import com.davidafaris.interfaces.Writer;
+import com.davidafaris.utilities.interfaces.Formatter;
+import com.davidafaris.utilities.interfaces.Writer;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;

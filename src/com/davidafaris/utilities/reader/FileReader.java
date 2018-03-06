@@ -1,7 +1,7 @@
 
-package com.davidafaris.reader;
-import com.davidafaris.interfaces.Formatter;
-import com.davidafaris.interfaces.Reader;
+package com.davidafaris.utilities.reader;
+import com.davidafaris.utilities.interfaces.Formatter;
+import com.davidafaris.utilities.interfaces.Reader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;

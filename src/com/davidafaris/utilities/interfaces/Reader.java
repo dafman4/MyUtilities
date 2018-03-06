@@ -1,5 +1,5 @@
 
-package com.davidafaris.interfaces;
+package com.davidafaris.utilities.interfaces;
 
 
 import java.util.List;

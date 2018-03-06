@@ -1,5 +1,5 @@
 
-package com.davidafaris.datetime;
+package com.davidafaris.utilities.datetime;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -16,7 +16,7 @@ import java.time.temporal.ChronoUnit;
  * @version 1.0
  * @since 1.8
  */
-public class DateUtilities {
+public final class DateUtilities {
 	private static DateUtilities instance;
 	
 	private DateUtilities(){

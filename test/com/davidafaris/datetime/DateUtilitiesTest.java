@@ -1,5 +1,6 @@
 package com.davidafaris.datetime;
 
+import com.davidafaris.utilities.datetime.DateUtilities;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
