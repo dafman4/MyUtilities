@@ -8,11 +8,10 @@ import com.davidafaris.utilities.interfaces.Writer;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.Map;
 
-public final class FileWriter implements Writer{
-	private Formatter formatStyle;
+public final class FileWriter implements Writer<String,String>{
+	private Formatter<String,String,String> formatStyle;
 	private boolean append;
 	private String fileLocation;
 	
@@ -27,16 +26,11 @@ public final class FileWriter implements Writer{
 		if(strings == null)
 			throw new IllegalArgumentException("Strings cannot be null!");
 		File file = new File(fileLocation);
-		PrintWriter out = null;
-		try{
-			out = new PrintWriter(new java.io.FileWriter(file));
+		try(PrintWriter out = new PrintWriter(new java.io.FileWriter(file))) {
 			for(String s : formatStyle.encode(strings))
 				out.println(s);
 		}catch(IOException e){
 			throw new Exception("Error openening file",e);
-		}finally{
-			if(out != null)
-				out.close();
 		}
 	}
 

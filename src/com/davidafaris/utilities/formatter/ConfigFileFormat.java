@@ -23,12 +23,12 @@ import java.util.Map;
  * key value pair Key=Value
  * Each line is it's own pair
  * this also provides the ability to comment areas in your properties file
- * using the # sign
+ * using the # sign as the first character on the line
  * 
  * 
  * @author David
  */
-public class ConfigFileFormat implements Formatter{
+public class ConfigFileFormat implements Formatter<String, String, String>{
 
 	@Override
 	public List<String> encode(Map<String,String> lines) {
@@ -45,13 +45,10 @@ public class ConfigFileFormat implements Formatter{
 		Map<String,String> ret = new HashMap<>();
 		for(String s: lines){
 			String[] parts = s.split("=");
-			for(String part :parts)
-				System.out.println(part);
 			if(parts[0].charAt(0) == '#')
 				continue;
 			ret.put(parts[0], parts[1]);
 		}
-		
 		return ret;
 	}
 

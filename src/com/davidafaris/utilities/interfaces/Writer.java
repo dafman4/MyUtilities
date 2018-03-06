@@ -9,14 +9,16 @@ import java.util.Map;
  * 
  * @author David A. Faris, dfaris@my.wctc.edu
  * @version 1.0
+ * @param <K> The type of the Key within the Map to be written
+ * @param <V> The type of the Value within the Map to be written
  * @since 1.0
  */
-public interface Writer {
+public interface Writer<K,V> {
 	/**
 	 * Writes to something specified by the implementation.
 	 * 
-	 * @param string a string to be implemented in whatever way the implementation sees fit
+	 * @param lines the map that will be used for 
 	 * @throws Exception in order to allow for many different type of writing locations (files/console/gui/etc.)
 	 */
-	public void write(Map<String,String> lines) throws Exception;
+	public void write(Map<K,V> lines) throws Exception;
 }

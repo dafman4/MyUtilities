@@ -13,11 +13,11 @@ import java.util.Map;
  * A reader that reads a file at the input file location according to the input formatter style
  * @author David
  */
-public final class FileReader implements Reader{
-	private Formatter formatStyle;
+public final class FileReader implements Reader<String,String>{
+	private Formatter<String,String,String> formatStyle;
 	private String fileLocation;
 	
-	public FileReader(Formatter formatStyle, String fileLocation){
+	public FileReader(Formatter<String,String,String> formatStyle, String fileLocation){
 		setFormatStyle(formatStyle);
 		setFileLocation(fileLocation);
 	}

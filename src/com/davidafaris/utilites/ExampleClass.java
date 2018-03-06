@@ -14,10 +14,19 @@ package com.davidafaris.utilites;
 
 import com.davidafaris.utilities.interfaces.ConfigInformationStrategy;
 import com.davidafaris.utilities.interfaces.DynamicClassFields;
-
-public class ExampleClass implements DynamicClassFields {
+/**
+ * This is an example of how to use the dynamic class fields interface, and used as the example class for using the factory linked with a properties file.
+ * @author David
+ */
+public final class ExampleClass implements DynamicClassFields {
 	private String thisIsAField;
-
+	private ExampleClass(){
+		
+	}
+	
+	public ExampleClass(String field){
+		setThisIsAField(field);
+	}
 	public String getThisIsAField() {
 		return thisIsAField;
 	}

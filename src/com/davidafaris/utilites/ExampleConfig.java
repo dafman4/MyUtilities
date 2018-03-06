@@ -20,9 +20,21 @@ import com.davidafaris.utilities.reader.FileReader;
 import java.util.Map;
 
 public class ExampleConfig implements ConfigInformationStrategy<String> {
+	/**
+	 * Keeps the config class down to 1 instance throughout any program.
+	 */
 	private static ExampleConfig instance;
+	/**
+	 * Holds the properties contained within the properties class (the key is the same type as is passed into the interface)
+	 */
 	private Map<String, String> properties;
+	/**
+	 * This simply contains the formatting style for whatever file you decide to use with the file reader
+	 */
 	private final Formatter FORMAT;
+	/**
+	 * Marks file location for the file reader used later
+	 */
 	private final String FILE_LOCATION;
 	
 	private ExampleConfig(){
