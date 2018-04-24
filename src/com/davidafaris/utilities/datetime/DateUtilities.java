@@ -1,6 +1,7 @@
 
 package com.davidafaris.utilities.datetime;
 
+import com.davidafaris.utilities.error.DateTimeException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -87,9 +88,8 @@ public final class DateUtilities {
 	 * @param formattedString The formatted string in the format Year/Month/Day
 	 * @return a LocalDate Object created from the formatted string
 	 * @throws IllegalArgumentException if the string is null or empty, or contain EXACTLY 2 groups of forward slashes (/)
-	 * @throws Exception throws an exception if any unexpected errors happen
 	 */
-	public LocalDate getLocalDateFromFormattedString(String formattedString) throws IllegalArgumentException, Exception{
+	public LocalDate getLocalDateFromFormattedString(String formattedString) throws IllegalArgumentException{
 		int[] yearMonthDay = getYearMonthDayOfFormattedString(formattedString);
 		return LocalDate.of(yearMonthDay[0], yearMonthDay[1], yearMonthDay[2]);
 	}
@@ -100,9 +100,8 @@ public final class DateUtilities {
 	 * @return a LocalDateTime object from the formatted string
 	 * @throws IllegalArgumentException if the any input is null or empty, if the string does not contain a space, forward slashes (/),
 	 * and/or colons (:) or if the separated strings using forward slashes and colons cannot be transformed into numbers
-	 * @throws Exception if there is an error while attempting to parse the value of the formatted string
 	 */
-	public LocalDateTime getLocalDateTimeFromFormattedString(String formattedString) throws IllegalArgumentException, Exception{
+	public LocalDateTime getLocalDateTimeFromFormattedString(String formattedString) throws IllegalArgumentException{
 		if(formattedString == null || formattedString.isEmpty() || !formattedString.contains(" "))
 			throw new IllegalArgumentException("Formatted String must not be null, empty, or without a space \" \"!");
 		String[] dateAndTime = formattedString.split(" ");
@@ -177,7 +176,7 @@ public final class DateUtilities {
 		return d.getSeconds()/60;
 	}
 	
-	private int[] getHoursMinutesSecondsOfFormattedString(String s){
+	private int[] getHoursMinutesSecondsOfFormattedString(String s) throws IllegalArgumentException{
 		int[] ret = new int[3];
 		if(s == null || s.isEmpty()){
 			throw new IllegalArgumentException("Formatted Time String must not be null or empty!");
@@ -196,7 +195,7 @@ public final class DateUtilities {
 		return ret;
 	}
 	
-	private int[] getYearMonthDayOfFormattedString(String s) {
+	private int[] getYearMonthDayOfFormattedString(String s) throws IllegalArgumentException {
 		if(s == null || s.isEmpty())
 			throw new IllegalArgumentException("Formatted String cannot be null or empty!");
 		if(!s.contains("/"))
@@ -208,7 +207,7 @@ public final class DateUtilities {
 		int[] ret = new int[3];
 		for(String part : parts)
 			if(!checkIfStringIsInteger(part))
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException("All parts of the date must be numeric and separated by \"/\"");
 		ret[0] = Integer.valueOf(parts[0]);
 		ret[1] = Integer.valueOf(parts[1]);
 		ret[2] = Integer.valueOf(parts[2]);

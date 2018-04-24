@@ -27,18 +27,17 @@ public class DateUtilitiesTest {
 	}
 	
 	@Test
-	public void testDateUtilitiesConvert() throws Exception{
+	public void testDateUtilitiesConvert(){
 		du.getLocalDateTimeFromFormattedString(time.format(DateTimeFormatter.ofPattern("uuuu/MM/ee HH:mm:ss")));
 		du.getLocalDateFromFormattedString(time.format(DateTimeFormatter.ofPattern("uuuu/MM/ee")));
 	}
 	
-	@Test
-	public void testDateUtilitiesFail() throws Exception{
-		try{
-			du.getLocalDateFromFormattedString("");
-		}catch(Exception e){
-			
-		}
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetLocalDateFromFormattedStringFail(){
+		du.getLocalDateFromFormattedString("");
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetLocalDateTimeFromFormattedStringFail(){
 		du.getLocalDateTimeFromFormattedString("");
 	}
 		
