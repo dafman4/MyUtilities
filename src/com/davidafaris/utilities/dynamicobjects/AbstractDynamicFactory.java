@@ -27,7 +27,16 @@ public abstract class AbstractDynamicFactory {
 			throw new SeriousException("There was an error loading the requested type of file: " + propertyKey);
 		}
 	}
-
+	
+	/**
+	 * This method returns an object with the fully qualified name className then attempts to cast that to
+	 * Type <T> returning the generated class,casted to T, there needs to be a constructor with 0
+	 * arguments for the generated class as well.
+	 * @param <T> the type that you want the generated object to be
+	 * @param className the fully qualified name of the object being generated
+	 * @return class <className> of type <T>
+	 * @throws Exception if there is an issue with the fully qualified name, or casting
+	 */
 	public static <T> T getInstance(String className)throws Exception{
 		Class clazz = Class.forName(className);
 		Constructor cons = clazz.getDeclaredConstructor(new Class[0]);
