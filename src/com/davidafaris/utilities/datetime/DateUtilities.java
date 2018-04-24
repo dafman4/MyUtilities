@@ -26,31 +26,33 @@ public final class DateUtilities {
 	 * @return An Instance of this class
 	 */
 	public static DateUtilities getInstance(){
-		return instance == null ? new DateUtilities() : instance;
+		if(instance ==null)
+			instance = new DateUtilities();
+		return instance;
 	}
 	/**
 	 * Returns a basic Month/Day/Year format in String form for a LocalDate object
-	 * @param time the object that is being turned into a formatted String
+	 * @param date the object that is being turned into a formatted String
 	 * @return A formatted String in Month/Day/Year form if the parameter existed
 	 * @throws IllegalArgumentException - If the argument is null throws an exception
 	 */
-	public String getFormattedLocalDate(LocalDate time) throws IllegalArgumentException{
-		if(time == null)
-			throw new IllegalArgumentException("Time cannot be null!");
-		return time.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
+	public String getFormattedLocalDate(LocalDate date) throws IllegalArgumentException{
+		if(date == null)
+			throw new IllegalArgumentException("date cannot be null!");
+		return date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
 	}
 	/**
 	 * Returns a String representative of a LocalDate in a format requested by the user
 	 * using Java.time.LocalDate format requirements
-	 * @param time The object being used to create the String being Returned
+	 * @param date The object being used to create the String being Returned
 	 * @param format The Format String defining how the date should be formatted following DateTimeFormatter formats
 	 * @return A formatted String representing a LocalDate or null if parameter requirements were not met
 	 * @throws IllegalArgumentException - If the arguments are null or empty (if applicable) throws an exception
 	 */
-	public String getFormattedLocalDate(LocalDate time, String format) throws IllegalArgumentException{
-		if(time == null || format == null || format.isEmpty())
-			throw new IllegalArgumentException("Time cannot be null and format cannot be null or empty!");
-		return time.format(DateTimeFormatter.ofPattern(format));
+	public String getFormattedLocalDate(LocalDate date, String format) throws IllegalArgumentException{
+		if(date == null || format == null || format.isEmpty())
+			throw new IllegalArgumentException("Date cannot be null and format cannot be null or empty!");
+		return date.format(DateTimeFormatter.ofPattern(format));
 	}
 	/**
 	 * Returns a LocalDateTime object as a formatted string following
@@ -105,7 +107,7 @@ public final class DateUtilities {
 			throw new IllegalArgumentException("Formatted String must not be null, empty, or without a space \" \"!");
 		String[] dateAndTime = formattedString.split(" ");
 		if(dateAndTime.length != 2)
-			throw new IllegalArgumentException("Date and Time must seperated by a space(s)");
+			throw new IllegalArgumentException("Date and Time must be the only items seperated by a space(s)");
 		int[] yearMonthDay = getYearMonthDayOfFormattedString(dateAndTime[0]);
 		int[] hoursMinutesSeconds = getHoursMinutesSecondsOfFormattedString(dateAndTime[1]);
 		return LocalDateTime.of(yearMonthDay[0], yearMonthDay[1], yearMonthDay[2],
@@ -183,7 +185,7 @@ public final class DateUtilities {
 		if(!s.contains(":"))
 			throw new IllegalArgumentException("Formatted Time String must contain exactly 2 colons");
 		String[] hoursMinutesSeconds = s.split(":");
-		if(s.length() != 3)
+		if(hoursMinutesSeconds.length != 3)
 			throw new IllegalArgumentException("Formatted Time String must contain exactly 2 colons");
 		for(String s2 : hoursMinutesSeconds)
 			if(!this.checkIfStringIsInteger(s2))
