@@ -7,24 +7,24 @@ import com.davidafaris.utilities.error.SeriousException;
 import java.lang.reflect.Constructor;
 
 // Author David
-public abstract class AbstractDynamicFactory {
+public abstract class GenericFactory {
 	
 	/**
-	 * This is a method to get an object that can dynamically update it's fields this if you just want an object look at getInstance
-	 * within this class.
+	 * This is a method to get an object that can dynamically update it's fields this if you just want an object look at getObject
+ within this class.
 	 * @param <T> the type that you wish to receive back that implement/extends DynamicClassFields
 	 * @param <K> the type of the Keys that the ConfigInformationStrategy used uses
 	 * @param config the config file that contains the path to the the object you wish to receive Ex. the property would be "com.davidafaris.utilities.ExampleClass" and the key would be "example"
 	 * @param propertyKey an object of type K representing the Key that links to the class path within the project
 	 * @return and object of type T that has the ability to update it's fields dynamically while the program is running
 	 */
-	public static <T extends DynamicClassFields, K> T getSpecifiedObject(ConfigInformationStrategy<K> config, K propertyKey){
+	public static <T extends DynamicClassFields, K> T getDynamicObject(ConfigInformationStrategy<K> config, K propertyKey){
 		try{
-			Object ret = ((T) getInstance((config.getProperty(propertyKey))));
+			Object ret = ((T) getObject((config.getProperty(propertyKey))));
 			((T) ret).updateDynamicFields(config);
 			return (T) ret;
 		}catch(Exception ex){
-			throw new SeriousException("There was an error loading the requested type of file: " + propertyKey);
+			throw new SeriousException("There was an error loading the requested type of file in the config file key: " + propertyKey);
 		}
 	}
 	
@@ -37,7 +37,7 @@ public abstract class AbstractDynamicFactory {
 	 * @return class <className> of type <T>
 	 * @throws Exception if there is an issue with the fully qualified name, or casting
 	 */
-	public static <T> T getInstance(String className)throws Exception{
+	public static <T> T getObject(String className)throws Exception{
 		Class clazz = Class.forName(className);
 		Constructor cons = clazz.getDeclaredConstructor(new Class[0]);
 		if(!cons.isAccessible())
