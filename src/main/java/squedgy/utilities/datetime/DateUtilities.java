@@ -77,7 +77,7 @@ public abstract class DateUtilities {
 	 * Year/Month/Day
 	 * @param formattedString The formatted string in the format Year/Month/Day
 	 * @return a LocalDate Object created from the formatted string
-	 * @throws IllegalArgumentException if the string is null or empty, or contain EXACTLY 2 groups of forward slashes (/)
+	 * @throws IllegalArgumentException if the string is null or empty, or contians more or less than 2 groups of forward slashes (/)
 	 */
 	public static LocalDate localDate(String formattedString) throws IllegalArgumentException {
 		int[] yearMonthDay = getYearMonthDayOfFormattedString(formattedString);
@@ -156,7 +156,7 @@ public abstract class DateUtilities {
 		}
 		if(!s.contains(":"))
 			throw new IllegalArgumentException("Formatted Time String must contain exactly 2 colons");
-		return splitIntString(s, ":", 3);
+		return splitIntString(s, ":+", 3);
 	}
 	
 	private static int[] getYearMonthDayOfFormattedString(String s) throws IllegalArgumentException {
@@ -164,16 +164,16 @@ public abstract class DateUtilities {
 			throw new IllegalArgumentException("Formatted String cannot be null or empty!");
 		if(!s.contains("/"))
 			throw new IllegalArgumentException("Formatted String must contain forward slashes (/)");
-		return splitIntString(s, "/", 3);
+		return splitIntString(s, "/+", 3);
 	}
 
-	private static int[] splitIntString(String s, String c, int length) throws RuntimeException {
-		String[] parts = s.split(c);
+	private static int[] splitIntString(String s, String regex, int length) throws RuntimeException {
+		String[] parts = s.split(regex);
 		if(parts.length != length){
-			throw new RuntimeException("String \"" + s + "\" split by '" + c + "' is not " + length + "long");
+			throw new RuntimeException("String \"" + s + "\" split by '" + regex + "' is not " + length + "long");
 		}
 		int[] ret = new int[length];
-		for(String part : parts) if(notInteger(part)) throw new RuntimeException("All parts \"" + s + "\" split by \"" + c + "\" are not integers");
+		for(String part : parts) if(notInteger(part)) throw new RuntimeException("All parts \"" + s + "\" split by \"" + regex + "\" are not integers");
 		ret[0] = Integer.valueOf(parts[0]);
 		ret[1] = Integer.valueOf(parts[1]);
 		ret[2] = Integer.valueOf(parts[2]);

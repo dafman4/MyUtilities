@@ -14,10 +14,10 @@ import java.util.Map;
  * @author David
  */
 public final class FileReader implements Reader<String,String>{
-	private Formatter<String,String,String> formatStyle;
+	private Formatter<Map<String, String>, List<String>> formatStyle;
 	private String fileLocation;
 	
-	public FileReader(Formatter<String,String,String> formatStyle, String fileLocation){
+	public FileReader(Formatter<Map<String,String>, List<String>> formatStyle, String fileLocation){
 		setFormatStyle(formatStyle);
 		setFileLocation(fileLocation);
 	}

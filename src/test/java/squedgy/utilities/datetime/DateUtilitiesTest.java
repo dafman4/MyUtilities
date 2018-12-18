@@ -25,7 +25,6 @@ public class DateUtilitiesTest {
 	
 	@Test
 	public void testDateUtilitiesConvert(){
-		
 		int year = time.getYear(),
 				month = time.getMonthValue(),
 				day = time.getDayOfMonth(),
@@ -48,13 +47,13 @@ public class DateUtilitiesTest {
 	}
 
 	@Test
-	public void testGetLocalDateFromFormattedStringFail(){
+	public void testLocalDateFails(){
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			DateUtilities.localDate("");
 		});
 	}
 	@Test
-	public void testGetLocalDateTimeFromFormattedStringFail(){
+	public void testLocalDateTimeFails(){
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			DateUtilities.localDateTime("");
 		});

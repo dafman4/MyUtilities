@@ -28,7 +28,7 @@ import java.util.Map;
  * 
  * @author David
  */
-public class ConfigFileFormat implements Formatter<String, String, String>{
+public class ConfigFileFormat implements Formatter<Map<String, String>, List<String>>{
 
 	@Override
 	public List<String> encode(Map<String,String> lines) {
@@ -44,7 +44,7 @@ public class ConfigFileFormat implements Formatter<String, String, String>{
 	public Map<String,String> decode(List<String> lines) {
 		Map<String,String> ret = new HashMap<>();
 		for(String s: lines){
-			String[] parts = s.split("=");
+			String[] parts = s.split(" +=+ +");
 			if(parts[0].charAt(0) == '#')
 				continue;
 			ret.put(parts[0], parts[1]);

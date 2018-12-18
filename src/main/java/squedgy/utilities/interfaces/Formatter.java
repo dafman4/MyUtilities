@@ -8,21 +8,21 @@ import java.util.Map;
 /**
  * An interface to act as a formatting tool for a list of strings
  * @author David A. Faris, dfaris@my.wctc.edu
- * @param <Key> The type of the Key that you are expecting to use within your decoded Map
- * @param <Value> The value type of the key within your decoded Map
- * @param <ListType> The type you are expecting your encoded list to use
+ * @param <InputType> The type being input for formatting
+ * @param <OutputType> The type being output
  */
-public interface Formatter<Key, Value, ListType> {
+public interface Formatter<InputType, OutputType> {
 	/**
 	 * Encodes a list of type ListType in a way specified by the implementation
-	 * @param lines the Map of type Key,Value to be encoded
+	 * @param lines the Map of type KeyType,ValueType to be encoded
 	 * @return a list of type ListType encoded to the implementation's requirements
 	 */
-	public List<ListType> encode(Map<Key, Value> lines);
+	public OutputType encode(InputType lines);
+
 	/**
 	 * Decodes a list of type ListType in a way that undoes the encoding done by the same implementation
 	 * @param lines the list of type ListType to be decoded
-	 * @return a Map of type Key,Value that represents lines after undoing the encoding done by this same class.
+	 * @return a Map of type KeyType,ValueType that represents lines after undoing the encoding done by this same class.
 	 */
-	public Map<Key, Value> decode(List<ListType> lines);
+	public InputType decode(OutputType lines);
 }

@@ -8,13 +8,14 @@ import squedgy.utilities.interfaces.Writer;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 /**
  * A Simple file writer that uses any sent formatter to encode and write to a specified file
  * @author David
  */
 public final class FileWriter implements Writer<String,String>{
-	private Formatter<String,String,String> formatStyle;
+	private Formatter<Map<String,String>, List<String>> formatStyle;
 	private boolean append;
 	private String fileLocation;
 	
