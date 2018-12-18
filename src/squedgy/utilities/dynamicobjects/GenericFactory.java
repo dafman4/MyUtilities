@@ -11,7 +11,7 @@ public abstract class GenericFactory {
 	
 	/**
 	 * This is a method to get an object that can dynamically update it's fields this if you just want an object look at getObject
- within this class.
+	 * within this class.
 	 * @param <T> the type that you wish to receive back that implement/extends DynamicClassFields
 	 * @param <K> the type of the Keys that the ConfigInformationStrategy used uses
 	 * @param config the config file that contains the path to the the object you wish to receive Ex. the property would be "com.davidafaris.utilities.ExampleClass" and the key would be "example"

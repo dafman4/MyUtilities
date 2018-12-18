@@ -20,7 +20,7 @@ public final class FileWriter implements Writer<String,String>{
 	
 	public FileWriter(String fileLocation,Formatter f, boolean append){
 		setFormatStyle(f);
-		setAppend(append);
+		setAppending(append);
 		setFileLocation(fileLocation);
 	}
 	
@@ -41,23 +41,17 @@ public final class FileWriter implements Writer<String,String>{
 	 * Returns the Formatter object
 	 * @return an object representing the formatting for the selected file
 	 */
-	public Formatter getFormatStyle() {
-		return formatStyle;
-	}
+	public Formatter getFormatStyle() { return formatStyle; }
 	/**
 	 * returns the file location as a string
 	 * @return the file location
 	 */
-	public String getFileLocation() {
-		return fileLocation;
-	}
+	public String getFileLocation() { return fileLocation; }
 	/**
 	 * sets the file location
 	 * @param fileLocation the location of the file 
 	 */
-	public void setFileLocation(String fileLocation) {
-		this.fileLocation = fileLocation;
-	}
+	public void setFileLocation(String fileLocation) { this.fileLocation = fileLocation; }
 	/**
 	 * sets the format style of the file you've selected
 	 * @param formatStyle and object representing how to encode/decode a file
@@ -71,15 +65,11 @@ public final class FileWriter implements Writer<String,String>{
 	 * returns a boolean that tells whether or not you are currently appending to a file
 	 * @return true = appending, false = not appending
 	 */
-	public boolean isAppend() {
-		return append;
-	}
+	public boolean isAppending() { return append; }
 	/**
 	 * Sets whether you are appending to a file or not
 	 * @param append true = append, false = don't append
 	 */
-	public void setAppend(boolean append) {
-		this.append = append;
-	}
+	public void setAppending(boolean append) { this.append = append; }
 
 }

@@ -17,27 +17,17 @@ import java.time.temporal.ChronoUnit;
  * @version 1.0
  * @since 1.8
  */
-public final class DateUtilities {
-	private static DateUtilities instance;
-	
-	private DateUtilities(){
-	}
-	/**
-	 * A Method that returns an instance of DateUtilities and creates one if none exists.
-	 * @return An Instance of this class
-	 */
-	public static DateUtilities getInstance(){
-		if(instance ==null)
-			instance = new DateUtilities();
-		return instance;
-	}
+public abstract final class DateUtilities {
+
+	private static final int year = 0, month = 1, day = 2, hours = 0, minutes = 1, seconds = 2;
+
 	/**
 	 * Returns a basic Month/Day/Year format in String form for a LocalDate object
 	 * @param date the object that is being turned into a formatted String
 	 * @return A formatted String in Month/Day/Year form if the parameter existed
 	 * @throws IllegalArgumentException - If the argument is null throws an exception
 	 */
-	public String getFormattedLocalDate(LocalDate date) throws IllegalArgumentException{
+	public static String getFormattedLocalDate(LocalDate date) throws IllegalArgumentException{
 		if(date == null)
 			throw new IllegalArgumentException("date cannot be null!");
 		return date.format(DateTimeFormatter.ofPattern("M/d/yyyy"));
@@ -50,7 +40,7 @@ public final class DateUtilities {
 	 * @return A formatted String representing a LocalDate or null if parameter requirements were not met
 	 * @throws IllegalArgumentException - If the arguments are null or empty (if applicable) throws an exception
 	 */
-	public String getFormattedLocalDate(LocalDate date, String format) throws IllegalArgumentException{
+	public static String getFormattedLocalDate(LocalDate date, String format) throws IllegalArgumentException{
 		if(date == null || format == null || format.isEmpty())
 			throw new IllegalArgumentException("Date cannot be null and format cannot be null or empty!");
 		return date.format(DateTimeFormatter.ofPattern(format));
@@ -62,7 +52,7 @@ public final class DateUtilities {
 	 * @return returns a formatted string following the format Month/Day/Year - Hours(Military):Minutes:Seconds
 	 * @throws IllegalArgumentException - if dateTime is null
 	 */
-	public String getFormattedLocalDateTime(LocalDateTime dateTime)throws IllegalArgumentException{
+	public static String getFormattedLocalDateTime(LocalDateTime dateTime)throws IllegalArgumentException{
 		if(dateTime == null){
 			throw new IllegalArgumentException("Date Time cannot be null!");
 		}
@@ -76,7 +66,7 @@ public final class DateUtilities {
 	 * @return Formatted String following the format requested by the user
 	 * @throws IllegalArgumentException if dateTime is null or format is null or empty
 	 */
-	public String getFormattedLocalDateTime(LocalDateTime dateTime, String format){
+	public static String getFormattedLocalDateTime(LocalDateTime dateTime, String format){
 		if(dateTime == null || format == null || format.isEmpty()){
 			throw new IllegalArgumentException("Date Time cannot be null and format cannot be null or empty!");
 		}
@@ -89,7 +79,7 @@ public final class DateUtilities {
 	 * @return a LocalDate Object created from the formatted string
 	 * @throws IllegalArgumentException if the string is null or empty, or contain EXACTLY 2 groups of forward slashes (/)
 	 */
-	public LocalDate getLocalDateFromFormattedString(String formattedString) throws IllegalArgumentException{
+	public static LocalDate getLocalDateFromFormattedString(String formattedString) throws IllegalArgumentException{
 		int[] yearMonthDay = getYearMonthDayOfFormattedString(formattedString);
 		return LocalDate.of(yearMonthDay[0], yearMonthDay[1], yearMonthDay[2]);
 	}
@@ -101,7 +91,7 @@ public final class DateUtilities {
 	 * @throws IllegalArgumentException if the any input is null or empty, if the string does not contain a space, forward slashes (/),
 	 * and/or colons (:) or if the separated strings using forward slashes and colons cannot be transformed into numbers
 	 */
-	public LocalDateTime getLocalDateTimeFromFormattedString(String formattedString) throws IllegalArgumentException{
+	public static DateTime localDateTime(String formattedString) throws IllegalArgumentException{
 		if(formattedString == null || formattedString.isEmpty() || !formattedString.contains(" "))
 			throw new IllegalArgumentException("Formatted String must not be null, empty, or without a space \" \"!");
 		String[] dateAndTime = formattedString.split(" ");
@@ -109,8 +99,8 @@ public final class DateUtilities {
 			throw new IllegalArgumentException("Date and Time must be the only items seperated by a space(s)");
 		int[] yearMonthDay = getYearMonthDayOfFormattedString(dateAndTime[0]);
 		int[] hoursMinutesSeconds = getHoursMinutesSecondsOfFormattedString(dateAndTime[1]);
-		return LocalDateTime.of(yearMonthDay[0], yearMonthDay[1], yearMonthDay[2],
-				hoursMinutesSeconds[0], hoursMinutesSeconds[1], hoursMinutesSeconds[2]);
+		return LocalDateTime.of(yearMonthDay[year], yearMonthDay[month], yearMonthDay[day],
+				hoursMinutesSeconds[0], hoursMinutesSeconds[1], hoursMinutesSeconds[seconds]);
 	}
 	/**
 	 * Returns the absolute difference in Seconds between the input LocalDateTime objects
@@ -118,7 +108,7 @@ public final class DateUtilities {
 	 * @param date2 The Second LocalDateTime Object
 	 * @return a Long value symbolic of the absolute difference in Seconds between the input LocalDateTimes
 	 */
-	public long getSecondsDifferenceBetweenLocalDateTimes(LocalDateTime date1, LocalDateTime date2){
+	public static long getSecondsBetween(LocalDateTime date1, LocalDateTime date2){
 		return Math.abs(date1.until(date2, ChronoUnit.SECONDS));
 	}
 	/**
@@ -127,21 +117,21 @@ public final class DateUtilities {
 	 * @param date2 The Second LocalDate Object
 	 * @return a long value symbolic of the absolute difference in Seconds between the input LocalDates
 	 */
-	public long getSecondsDifferenceBetweenLocalDates(LocalDate date1, LocalDate date2){
+	public static long getSecondsBetween(LocalDate date1, LocalDate date2){
 		return Math.abs(date1.until(date2, ChronoUnit.SECONDS));
 	}
 	/**
 	 * Returns a String relating to a Duration object created from the total amount of time in Seconds
 	 * In the format [Hours] Hours [Minutes] Minutes [Seconds] Seconds
-	 * @param totalTime the amount of Seconds in the duration
+	 * @param seconds the amount of Seconds in the duration
 	 * @return a String relating to a duration object created by an amount of Seconds
 	 * @throws IllegalArgumentException if totalTime is less than zero
 	 */
-	public String getDurationAsStringOfTimeFromSeconds(long totalTime){
-		if(totalTime <0)
+	public static String secondsToDurationString(long seconds){
+		if(seconds <0)
 			throw new IllegalArgumentException("Total Time must be greater than or equal to 0!");
 		String ret = "";
-		Duration time = Duration.ofSeconds(totalTime);
+		Duration time = Duration.ofSeconds(seconds);
 		ret = time.toString().substring(2).replaceAll("H", " Hours " ).replaceAll("M", " Minutes ").replaceAll("S", " Seconds");
 		
 		return ret;
@@ -151,7 +141,7 @@ public final class DateUtilities {
 	 * @param totalTime The amount of time being converted to a Duration object
 	 * @return A Duration object with a duration equal to totalTime
 	 */
-	public Duration getDurationOfTimeFromSeconds(long totalTime){
+	public static Duration getDurationOfTimeFromSeconds(long totalTime){
 		return Duration.ofSeconds(totalTime);
 	}
 
@@ -160,7 +150,7 @@ public final class DateUtilities {
 	 * @param durations an input amount of durations (comma separated, array, or list)
 	 * @return a Duration Object with a duration equal to all input durations
 	 */
-	public Duration addDurationsToNewDuration(Duration... durations){
+	public static Duration addDurationsToNewDuration(Duration... durations){
 		long totalSeconds = 0;
 		for(Duration d: durations)
 			totalSeconds += d.get(ChronoUnit.SECONDS);
@@ -172,7 +162,7 @@ public final class DateUtilities {
 	 * @param d the duration being converted
 	 * @return the amount of minutes within the duration
 	 */
-	public long getMinutesWithinDuration(Duration d){
+	public static long getMinutesWithinDuration(Duration d){
 		return d.getSeconds()/60;
 	}
 	

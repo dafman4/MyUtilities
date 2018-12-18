@@ -9,15 +9,15 @@ import java.util.Map;
  * 
  * @author David A. Faris, dfaris@my.wctc.edu
  * @version 1.0
- * @param <K> The Type of the key within the returned Map
- * @param <V> The Type of the value within the returned Map
+ * @param <Key> The Type of the key within the returned Map
+ * @param <Value> The Type of the value within the returned Map
  * @since 1.0
  */
-public interface Reader <K,V>{
+public interface Reader <Key, Value>{
 	/**
 	 *Returns a list of strings read from somewhere specified by the concrete class
 	 * @return a list of strings read from somewhere or something
 	 * @throws Exception in order to easily allow for many types of things to be read from (custom error messages recommended)
 	 */
-	public Map<K,V> read() throws Exception;
+	public Map<Key, Value> read() throws Exception;
 }

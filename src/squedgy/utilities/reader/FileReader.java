@@ -51,9 +51,7 @@ public final class FileReader implements Reader<String,String>{
 	 * returns the location of the file as a string
 	 * @return string representing the file location
 	 */
-	public String getFileLocation() {
-		return fileLocation;
-	}
+	public String getFileLocation() { return fileLocation; }
 	/**
 	 * sets the location of the file
 	 * @param fileLocation the new location of a file to be read
@@ -76,7 +74,5 @@ public final class FileReader implements Reader<String,String>{
 	 * Returns the currently used format stye object
 	 * @return an object representing the method of decoding a file
 	 */
-	public Formatter getFormatStyle(){
-		return formatStyle;
-	}
+	public Formatter getFormatStyle(){ return formatStyle; }
 }
