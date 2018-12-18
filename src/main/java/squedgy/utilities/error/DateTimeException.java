@@ -2,7 +2,7 @@ package squedgy.utilities.error;
 
 /**
  *
- * @author David
+ * @author Squedgy
  */
 public class DateTimeException extends RuntimeException{
 	

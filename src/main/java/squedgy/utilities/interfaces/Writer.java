@@ -7,7 +7,7 @@ import java.util.Map;
  * This interface is designed to allow for a
  * simple and flexible writer system when combined with the Formatter interface
  * 
- * @author David A. Faris, dfaris@my.wctc.edu
+ * @author Squedgy
  * @version 1.0
  * @param <Key> The type of the Key within the Map to be written
  * @param <Value> The type of the Value within the Map to be written

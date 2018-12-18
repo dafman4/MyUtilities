@@ -20,12 +20,11 @@ import java.util.Map;
 /**
  * Config file Format is used for a simple config file format option
  * It reads and encodes files that have individual lines based on the
- * key value pair Key=Value
+ * key value pair Key/ +=+ +/Value
  * Each line is it's own pair
  * this also provides the ability to comment areas in your properties file
  * using the # sign as the first character on the line
- * 
- * 
+ *
  * @author David
  */
 public class ConfigFileFormat implements Formatter<Map<String, String>, List<String>>{
@@ -44,9 +43,9 @@ public class ConfigFileFormat implements Formatter<Map<String, String>, List<Str
 	public Map<String,String> decode(List<String> lines) {
 		Map<String,String> ret = new HashMap<>();
 		for(String s: lines){
+			if(s.startsWith("#")) continue;
+			if(s.startsWith("\\")) s = s.substring(1);
 			String[] parts = s.split(" +=+ +");
-			if(parts[0].charAt(0) == '#')
-				continue;
 			ret.put(parts[0], parts[1]);
 		}
 		return ret;

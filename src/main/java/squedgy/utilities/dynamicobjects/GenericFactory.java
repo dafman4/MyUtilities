@@ -6,7 +6,7 @@ import squedgy.utilities.interfaces.DynamicClassFields;
 import squedgy.utilities.error.SeriousException;
 import java.lang.reflect.Constructor;
 
-// Author David
+// Author Squedgy
 public abstract class GenericFactory {
 	
 	/**

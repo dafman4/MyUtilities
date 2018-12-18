@@ -1,7 +1,7 @@
 
 package squedgy.utilities.interfaces;
 
-// Author David
+// Author Squedgy
 public interface DynamicClassFields {
 	public void updateDynamicFields(ConfigInformationStrategy config);
 }

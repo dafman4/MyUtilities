@@ -1,7 +1,7 @@
 
 package squedgy.utilities.writer;
 
-// Author David
+// Author Squedgy
 
 import squedgy.utilities.interfaces.Formatter;
 import squedgy.utilities.interfaces.Writer;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 /**
  * A Simple file writer that uses any sent formatter to encode and write to a specified file
- * @author David
+ * @author Squedgy
  */
 public final class FileWriter implements Writer<String,String>{
 	private Formatter<Map<String,String>, List<String>> formatStyle;

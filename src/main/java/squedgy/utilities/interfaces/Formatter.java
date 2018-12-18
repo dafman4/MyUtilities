@@ -1,13 +1,13 @@
 
 package squedgy.utilities.interfaces;
 
-// Author David
+// Author Squedgy
 
 import java.util.List;
 import java.util.Map;
 /**
  * An interface to act as a formatting tool for a list of strings
- * @author David A. Faris, dfaris@my.wctc.edu
+ * @author Squedgy
  * @param <InputType> The type being input for formatting
  * @param <OutputType> The type being output
  */

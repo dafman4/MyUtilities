@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
  * creation and modification of Different Java DateTime Objects
  * As well as formatting the Date time into strings with different kinds of formatting for them.
  * 
- * @author David A. Faris, dfaris@my.wctc.edu
+ * @author Squedgy
  * @version 1.0
  * @since 1.8
  */

@@ -1,7 +1,7 @@
 
 package squedgy.utilities.interfaces;
 
-// Author David
+// Author Squedgy
 
 import java.util.Map;
 /**
@@ -9,7 +9,7 @@ import java.util.Map;
  * of itself to be in memory at any given time.
  * 
  * 
- * @author David
+ * @author Squedgy
  * @param <Key> Key is the type of the key in the map used to store properties
  *             (this should match the type of the key of your formatter map, if applicable)
  */

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 /**
  * A reader that reads a file at the input file location and decodes according to the input formatter style
- * @author David
+ * @author Squedgy
  */
 public final class FileReader implements Reader<String,String>{
 	private Formatter<Map<String, String>, List<String>> formatStyle;
