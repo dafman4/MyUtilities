@@ -12,3 +12,24 @@ nbactions.xml
 
 
 # End of https://www.gitignore.io/api/netbeans
+
+.idea
+
+# idea
+**/out
+**/*.ipr
+**/*.iws
+**/*.iml
+**/.idea
+**/.editorconfig
+
+
+#Gradle stuffs
+**/.gradle
+**/build/
+**/gradle-app.setting
+!**/gradle-wrapper.jar
+**/.gradletasknamecache
+
+**/.DS_Store
+
