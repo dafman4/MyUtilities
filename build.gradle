@@ -4,7 +4,25 @@ buildscript{
 
 plugins {
     id 'java'
+    id 'maven-publish'
 }
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.squedgy'
+            artifactId = 'my-utilties'
+            version = '1.0'
+
+            from components.java
+        }
+    }
+}
+
+group 'com.squedgy'
+version '1.0'
+
+sourceCompatibility = 1.8
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -16,22 +34,16 @@ jar{
 
 sourceCompatibility = 1.8
 
-repositories{ mavenCentral() }
+repositories{
+    mavenCentral()
+}
+
+publishToMavenLocal{
+
+}
 
 dependencies{
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.1'
     testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.1'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.1'
-}
-group 'com.squedgy.mc-mod-manager'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
