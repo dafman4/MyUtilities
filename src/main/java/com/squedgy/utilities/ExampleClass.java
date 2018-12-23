@@ -28,8 +28,7 @@ public final class ExampleClass implements DynamicClassFields {
 	@Override
 	public void updateDynamicFields(ConfigInformationStrategy config) {
 		String newString = config.getProperty("ExampleField");
-		if(newString!=null)
-			thisIsAField=newString;
+		if(newString!=null) thisIsAField=newString;
 	}
 
 }

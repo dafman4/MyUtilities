@@ -3,46 +3,28 @@ package com.squedgy.utilities.writer;
 
 // Author Squedgy
 
-import com.squedgy.utilities.interfaces.Formatter;
-import com.squedgy.utilities.interfaces.Writer;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
+import com.squedgy.utilities.abstracts.Writer;
+import com.squedgy.utilities.interfaces.FileFormatter;
+
 /**
  * A Simple file writer that uses any sent formatter to encode and write to a specified file
  * @author Squedgy
  */
-public final class FileWriter implements Writer<String,String>{
-	private Formatter<Map<String,String>, List<String>> formatStyle;
+public final class FileWriter <WriteType> extends Writer<WriteType, Void>{
 	private boolean append;
 	private String fileLocation;
 	
-	public FileWriter(String fileLocation,Formatter f, boolean append){
-		setFormatStyle(f);
+	public FileWriter(String fileLocation, FileFormatter<WriteType> f, boolean append){
+		super(f);
 		setAppending(append);
 		setFileLocation(fileLocation);
 	}
 	
 	@Override
-	public void write(Map<String,String> strings) throws Exception {
-		if(strings == null)
-			throw new IllegalArgumentException("Strings cannot be null!");
-		File file = new File(fileLocation);
-		try(PrintWriter fileWriter = new PrintWriter(new java.io.FileWriter(file))) {
-			formatStyle.encode(strings).forEach((s) -> {
-				fileWriter.println(s);
-			});
-		}catch(IOException e){
-			throw new Exception("Error openening file",e);
-		}
+	public void write(WriteType strings) throws Exception {
+		((FileFormatter)formatter).setWorkingFile(fileLocation);
+		formatter.encode(strings);
 	}
-	/**
-	 * Returns the Formatter object
-	 * @return an object representing the formatting for the selected file
-	 */
-	public Formatter getFormatStyle() { return formatStyle; }
 	/**
 	 * returns the file location as a string
 	 * @return the file location
@@ -53,15 +35,6 @@ public final class FileWriter implements Writer<String,String>{
 	 * @param fileLocation the location of the file 
 	 */
 	public void setFileLocation(String fileLocation) { this.fileLocation = fileLocation; }
-	/**
-	 * sets the format style of the file you've selected
-	 * @param formatStyle and object representing how to encode/decode a file
-	 */
-	public void setFormatStyle(Formatter formatStyle) {
-		if(formatStyle == null)
-			throw new IllegalArgumentException("Format Style cannot be null!");
-		this.formatStyle = formatStyle;
-	}
 	/**
 	 * returns a boolean that tells whether or not you are currently appending to a file
 	 * @return true = appending, false = not appending

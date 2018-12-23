@@ -9,7 +9,7 @@ import java.util.Map;
  * An interface to act as a formatting tool for a list of strings
  * @author Squedgy
  * @param <InputType> The type being input for formatting
- * @param <OutputType> The type being output
+ * @param <OutputType> The type being produced after formatting
  */
 public interface Formatter<InputType, OutputType> {
 	/**

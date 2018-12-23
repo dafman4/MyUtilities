@@ -1,50 +1,26 @@
 
 package com.squedgy.utilities.reader;
-import com.squedgy.utilities.interfaces.Formatter;
-import com.squedgy.utilities.interfaces.Reader;
-import java.io.BufferedReader;
+import com.squedgy.utilities.interfaces.FileFormatter;
+import com.squedgy.utilities.abstracts.Reader;
+
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
 /**
  * A reader that reads a file at the input file location and decodes according to the input formatter style
  * @author Squedgy
  */
-public final class FileReader implements Reader<String,String>{
-	private Formatter<Map<String, String>, List<String>> formatStyle;
+public final class FileReader <WriteType> extends Reader<WriteType,Void>{
 	private String fileLocation;
 	
-	public FileReader(Formatter<Map<String,String>, List<String>> formatStyle, String fileLocation){
-		setFormatStyle(formatStyle);
+	public FileReader(FileFormatter<WriteType> formatStyle, String fileLocation){
+		super(formatStyle);
 		setFileLocation(fileLocation);
 	}
 
 	@Override
-	public Map<String,String> read() throws Exception{
-		File file = new File(fileLocation);
-		BufferedReader in = null;
-		try{
-			in = new BufferedReader(new java.io.FileReader(file));
-			List<String> lines = new ArrayList<>();
-			String line = in.readLine();
-			while(line != null){
-				lines.add(line);
-				line = in.readLine();
-			}
-			return formatStyle.decode(lines);
-		}catch(IOException e){
-			throw new Exception("Error while opening or reading file!",e);
-		}finally{
-			if(in != null){
-				try{
-					in.close();
-				}catch(IOException e){
-					throw new Exception("Error closing file", e);
-				}
-			}
-		}
+	public WriteType read() throws Exception{
+		((FileFormatter) formatter).setWorkingFile(fileLocation);
+		return formatter.decode(null);
 	}
 	/**
 	 * returns the location of the file as a string
@@ -60,18 +36,5 @@ public final class FileReader implements Reader<String,String>{
 			throw new IllegalArgumentException("File Location cannot be null or empty!");
 		this.fileLocation = fileLocation;
 	}
-	/**
-	 * An object telling the class how to decode a file
-	 * @param f the new formatting method of a file
-	 */
-	public void setFormatStyle(Formatter f){
-		if(f == null)
-			throw new IllegalArgumentException("F cannot be null!");
-		formatStyle = f;
-	}
-	/**
-	 * Returns the currently used format stye object
-	 * @return an object representing the method of decoding a file
-	 */
-	public Formatter getFormatStyle(){ return formatStyle; }
+
 }

@@ -11,7 +11,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId = 'com.squedgy'
-            artifactId = 'my-utilties'
+            artifactId = 'my-utilities'
             version = '1.0'
 
             from components.java

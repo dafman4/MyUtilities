@@ -12,6 +12,7 @@
 
 package com.squedgy.utilities;
 
+import com.squedgy.utilities.interfaces.FileFormatter;
 import com.squedgy.utilities.reader.FileReader;
 import com.squedgy.utilities.error.SeriousException;
 import com.squedgy.utilities.formatter.ConfigFileFormat;
@@ -32,7 +33,7 @@ public class ExampleConfig implements ConfigInformationStrategy<String> {
 	/**
 	 * This simply contains the formatting style for whatever file you decide to use with the file reader
 	 */
-	private final Formatter FORMAT;
+	private final FileFormatter<Map<String,String>> FORMAT;
 	/**
 	 * Marks file location for the file reader used later
 	 */
@@ -70,12 +71,11 @@ public class ExampleConfig implements ConfigInformationStrategy<String> {
 
 	@Override
 	public void setProperty(String key, String value) {
-		if(key != null && value != null)
-			properties.put(key, value);
+		if(key != null && value != null) properties.put(key, value);
 	}
 	
 	private void updateProperties() throws SeriousException{
-		FileReader fr = new FileReader(FORMAT, FILE_LOCATION);
+		FileReader<Map<String,String>> fr = new FileReader<>(FORMAT, FILE_LOCATION);
 		try{
 			properties = fr.read();
 		}catch(Exception e){
