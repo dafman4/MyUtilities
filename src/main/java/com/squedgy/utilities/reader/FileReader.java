@@ -1,12 +1,11 @@
 
-package squedgy.utilities.reader;
-import squedgy.utilities.interfaces.Formatter;
-import squedgy.utilities.interfaces.Reader;
+package com.squedgy.utilities.reader;
+import com.squedgy.utilities.interfaces.Formatter;
+import com.squedgy.utilities.interfaces.Reader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**

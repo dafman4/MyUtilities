@@ -1,5 +1,5 @@
 
-package squedgy.utilities.interfaces;
+package com.squedgy.utilities.interfaces;
 
 // Author Squedgy
 public interface DynamicClassFields {

@@ -1,9 +1,9 @@
 
 
-package squedgy.utilites;
+package com.squedgy.utilities;
 
-import squedgy.utilities.interfaces.ConfigInformationStrategy;
-import squedgy.utilities.interfaces.DynamicClassFields;
+import com.squedgy.utilities.interfaces.ConfigInformationStrategy;
+import com.squedgy.utilities.interfaces.DynamicClassFields;
 /**
  * This is an example of how to use the dynamic class fields interface, and used as the example class for using the factory linked with a properties file.
  * @author Squedgy

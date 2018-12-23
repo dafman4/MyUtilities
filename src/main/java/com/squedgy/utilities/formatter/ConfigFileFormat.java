@@ -10,9 +10,9 @@
  * and open the template in the editor.
  */
 
-package squedgy.utilities.formatter;
+package com.squedgy.utilities.formatter;
 
-import squedgy.utilities.interfaces.Formatter;
+import com.squedgy.utilities.interfaces.Formatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

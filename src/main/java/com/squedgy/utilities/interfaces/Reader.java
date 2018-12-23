@@ -1,5 +1,5 @@
 
-package squedgy.utilities.interfaces;
+package com.squedgy.utilities.interfaces;
 
 
 import java.util.Map;

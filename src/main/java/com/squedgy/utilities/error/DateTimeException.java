@@ -1,4 +1,4 @@
-package squedgy.utilities.error;
+package com.squedgy.utilities.error;
 
 /**
  *

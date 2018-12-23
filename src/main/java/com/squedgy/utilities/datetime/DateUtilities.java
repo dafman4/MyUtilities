@@ -1,5 +1,5 @@
 
-package squedgy.utilities.datetime;
+package com.squedgy.utilities.datetime;
 
 import java.rmi.UnexpectedException;
 import java.time.Duration;

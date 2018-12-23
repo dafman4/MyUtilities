@@ -1,10 +1,10 @@
 
-package squedgy.utilities.writer;
+package com.squedgy.utilities.writer;
 
 // Author Squedgy
 
-import squedgy.utilities.interfaces.Formatter;
-import squedgy.utilities.interfaces.Writer;
+import com.squedgy.utilities.interfaces.Formatter;
+import com.squedgy.utilities.interfaces.Writer;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;

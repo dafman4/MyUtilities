@@ -10,13 +10,14 @@
  * and open the template in the editor.
  */
 
-package squedgy.utilites;
+package com.squedgy.utilities;
 
-import squedgy.utilities.error.SeriousException;
-import squedgy.utilities.formatter.ConfigFileFormat;
-import squedgy.utilities.interfaces.ConfigInformationStrategy;
-import squedgy.utilities.interfaces.Formatter;
-import squedgy.utilities.reader.FileReader;
+import com.squedgy.utilities.reader.FileReader;
+import com.squedgy.utilities.error.SeriousException;
+import com.squedgy.utilities.formatter.ConfigFileFormat;
+import com.squedgy.utilities.interfaces.ConfigInformationStrategy;
+import com.squedgy.utilities.interfaces.Formatter;
+
 import java.util.Map;
 
 public class ExampleConfig implements ConfigInformationStrategy<String> {
