@@ -12,13 +12,13 @@ import java.io.File;
 public final class FileReader <WriteType> extends Reader<WriteType,Void>{
 	private String fileLocation;
 	
-	public FileReader(FileFormatter<WriteType> formatStyle, String fileLocation){
+	public FileReader(String fileLocation, FileFormatter<WriteType> formatStyle){
 		super(formatStyle);
 		setFileLocation(fileLocation);
 	}
 
 	@Override
-	public WriteType read() throws Exception{
+	public WriteType read(){
 		((FileFormatter) formatter).setWorkingFile(fileLocation);
 		return formatter.decode(null);
 	}

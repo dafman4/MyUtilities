@@ -26,9 +26,8 @@ public abstract class Writer<WriteType, ReadType> {
 	 * Writes to something specified by the implementation.
 	 * 
 	 * @param lines an object of type <WriteType> that the writer writes values from
-	 * @throws Exception in order to allow for many different type of writing locations (files/console/gui/etc.)
 	 */
-	public abstract void write(WriteType lines) throws Exception;
+	public abstract void write(WriteType lines);
 
 	public final Formatter<WriteType, ReadType> getFormatter() {
 		return formatter;

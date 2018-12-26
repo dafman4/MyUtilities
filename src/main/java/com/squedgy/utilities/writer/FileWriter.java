@@ -21,7 +21,7 @@ public final class FileWriter <WriteType> extends Writer<WriteType, Void>{
 	}
 	
 	@Override
-	public void write(WriteType strings) throws Exception {
+	public void write(WriteType strings) {
 		((FileFormatter)formatter).setWorkingFile(fileLocation);
 		formatter.encode(strings);
 	}

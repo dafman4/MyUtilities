@@ -25,9 +25,8 @@ public abstract class Reader <WriteType, ReadType>{
 	/**
 	 *Returns a list of strings read from somewhere specified by the concrete class
 	 * @return a list of strings read from somewhere or something
-	 * @throws Exception in order to easily allow for many types of things to be read from (custom error messages recommended)
 	 */
-	public abstract WriteType read() throws Exception;
+	public abstract WriteType read();
 
 	public final void setFormatter(Formatter<WriteType, ReadType> formatter){
 		if(formatter == null) throw new IllegalArgumentException("formatter cannot be null!");
