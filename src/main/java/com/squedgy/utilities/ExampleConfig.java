@@ -77,7 +77,7 @@ public class ExampleConfig implements ConfigInformationStrategy<String> {
 	private void updateProperties() throws SeriousException{
 		FileReader<Map<String,String>> fr = new FileReader<>(FILE_LOCATION, FORMAT);
 		try{
-			properties = fr.read();
+			properties = fr.read(null);
 		}catch(Exception e){
 			throw new SeriousException("There was an error updating properties!\nPossibly with the file. Has it been tampered with, or was it edited while this was running?");
 		}

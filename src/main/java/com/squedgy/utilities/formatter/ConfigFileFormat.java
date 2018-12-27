@@ -89,7 +89,7 @@ public class ConfigFileFormat implements FileFormatter<Map<String, String>> {
 	@Override
 	public String toString() { return "ConfigFileFormat instance"; }
 
-	@Override
+    @Override
 	public boolean shouldCreateFiles() { return true; }
 
 	@Override

@@ -13,28 +13,14 @@ import com.squedgy.utilities.interfaces.Formatter;
  * @param <WriteType> The type the writer writes about
  * @since 1.0
  */
-public abstract class Writer<WriteType, ReadType> {
-
-	protected Formatter<WriteType, ReadType> formatter;
-
-	public Writer(Formatter<WriteType, ReadType> formatter){
-		setFormatter(formatter);
-	}
-
+public interface Writer<WriteType, ReadType> {
 
 	/**
 	 * Writes to something specified by the implementation.
 	 * 
-	 * @param lines an object of type <WriteType> that the writer writes values from
+	 * @param toWrite an object of type <WriteType> that the writer writes values from
+	 * @return ReadType returns an instance of the ReadType
 	 */
-	public abstract void write(WriteType lines);
+	public abstract ReadType write(WriteType toWrite);
 
-	public final Formatter<WriteType, ReadType> getFormatter() {
-		return formatter;
-	}
-
-	public final void setFormatter(Formatter<WriteType, ReadType> formatter) {
-		if(formatter == null) throw new IllegalArgumentException("Formatter must not be null!");
-		this.formatter = formatter;
-	}
 }
