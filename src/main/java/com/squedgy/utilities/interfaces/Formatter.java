@@ -1,6 +1,8 @@
 
 package com.squedgy.utilities.interfaces;
 
+import java.io.IOException;
+
 /**
  * An interface to act as a formatting tool
  * @author Squedgy
@@ -13,7 +15,7 @@ public interface Formatter<InputType, OutputType> {
 	 * @param toEncode
 	 * @return an OutputType instance
 	 */
-	public OutputType encode(InputType toEncode);
+	public OutputType encode(InputType toEncode) throws IOException;
 
 	/**
 	 * @param toDecode the OutputType to decode into an InputType

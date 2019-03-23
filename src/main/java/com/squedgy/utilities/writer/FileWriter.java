@@ -6,6 +6,8 @@ package com.squedgy.utilities.writer;
 import com.squedgy.utilities.abstracts.Writer;
 import com.squedgy.utilities.interfaces.FileFormatter;
 
+import java.io.IOException;
+
 /**
  * A Simple file writer that uses any sent formatter to encode and write to a specified file
  * @author Squedgy
@@ -21,7 +23,7 @@ public final class FileWriter <WriteType> implements Writer<WriteType, Void>{
 	}
 	
 	@Override
-	public Void write(WriteType strings) {
+	public Void write(WriteType strings) throws IOException {
 		formatter.setWorkingFile(fileLocation);
 		formatter.encode(strings);
 		return null;

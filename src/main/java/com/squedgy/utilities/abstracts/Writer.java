@@ -4,6 +4,8 @@ package com.squedgy.utilities.abstracts;
 import com.squedgy.utilities.interfaces.FileFormatter;
 import com.squedgy.utilities.interfaces.Formatter;
 
+import java.io.IOException;
+
 /**
  * This interface is designed to allow for a
  * simple and flexible writer system when combined with the Formatter interface
@@ -21,6 +23,6 @@ public interface Writer<WriteType, ReadType> {
 	 * @param toWrite an object of type <WriteType> that the writer writes values from
 	 * @return ReadType returns an instance of the ReadType
 	 */
-	public abstract ReadType write(WriteType toWrite);
+	public abstract ReadType write(WriteType toWrite) throws IOException;
 
 }
