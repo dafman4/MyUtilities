@@ -1,5 +1,7 @@
 
-package com.squedgy.utilities.abstracts;
+package com.squedgy.utilities.interfaces;
+
+import java.io.IOException;
 
 /**
  * This interface is designed to allow for a
@@ -19,6 +21,6 @@ public interface Reader <WriteType, ReadType>{
 	 *That doesn't actually change return anything
 	 *@return a list of <WriteType> read from somewhere or something
 	 */
-	public abstract WriteType read(ReadType toRead);
+	public abstract WriteType read(ReadType toRead) throws IOException;
 
 }

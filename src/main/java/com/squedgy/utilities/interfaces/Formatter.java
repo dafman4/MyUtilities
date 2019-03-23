@@ -6,20 +6,20 @@ import java.io.IOException;
 /**
  * An interface to act as a formatting tool
  * @author Squedgy
- * @param <InputType> The type being input for formatting
- * @param <OutputType> The type being produced after formatting
+ * @param <FormattedType> The type being input for formatting
+ * @param <EncodedType> The type being produced after formatting
  */
-public interface Formatter<InputType, OutputType> {
+public interface Formatter<FormattedType, EncodedType> {
 
 	/**
 	 * @param toEncode
-	 * @return an OutputType instance
+	 * @return an EncodedType instance
 	 */
-	public OutputType encode(InputType toEncode) throws IOException;
+	public EncodedType encode(FormattedType toEncode) throws IOException;
 
 	/**
-	 * @param toDecode the OutputType to decode into an InputType
-	 * @return InputType instance
+	 * @param toDecode the EncodedType to decode into an FormattedType
+	 * @return FormattedType instance
 	 */
-	public InputType decode(OutputType toDecode);
+	public FormattedType decode(EncodedType toDecode);
 }

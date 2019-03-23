@@ -2,40 +2,37 @@
 package com.squedgy.utilities.reader;
 
 import com.squedgy.utilities.interfaces.FileFormatter;
-import com.squedgy.utilities.abstracts.Reader;
+import com.squedgy.utilities.interfaces.Reader;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+
+import static java.nio.file.Files.newInputStream;
+import static java.nio.file.StandardOpenOption.READ;
 
 /**
  * A reader that reads a file at the input file location and decodes according to the input formatter style
  *
  * @author Squedgy
  */
-public final class FileReader<WriteType> implements Reader<WriteType, Void> {
-    private String fileLocation;
+public final class FileReader<WriteType> implements Reader<WriteType, String> {
+
     private FileFormatter<WriteType> formatter;
 
-    public FileReader(String fileLocation, FileFormatter<WriteType> formatStyle) {
+    public FileReader(FileFormatter<WriteType> formatStyle) {
         this.formatter = formatStyle;
-        setFileLocation(fileLocation);
     }
 
     @Override
-    public WriteType read(Void ignored) {
+    public WriteType read(String fileLocation) throws IOException {
         File f = new File(fileLocation);
         if (f.exists() && f.isFile()) {
-            return formatter.decode(null);
+            return formatter.decode(newInputStream(f.toPath(), READ));
         }
         return null;
-    }
-
-    public String getFileLocation() { return fileLocation; }
-
-    public void setFileLocation(String fileLocation) {
-        if (fileLocation == null || fileLocation.isEmpty())
-            throw new IllegalArgumentException("File Location cannot be null or empty!");
-        this.fileLocation = fileLocation;
     }
 
     public FileFormatter<WriteType> getFormatter() { return formatter; }

@@ -1,12 +1,10 @@
 package com.squedgy.utilities.formatter;
 
-import com.squedgy.utilities.interfaces.Formatters;
 import org.slf4j.Logger;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -20,17 +18,10 @@ public class HeaderedCsvFormatter extends CsvFormatter<Map<String, List<String>>
 
 	private boolean inQuote = false;
 
-	public static void main(String[] args) throws IOException {
-
-		CsvFormatter formatter = Formatters.headeredCsv()/*.quotedBy('"')*/;
-		formatter.encode(new ByteArrayInputStream("\"this\",\"is\", \"headers\"".getBytes()));
-
-	}
-
 	@Override
-	public Map<String, List<String>> encode(InputStream toEncode) {
-
-		try(BufferedInputStream stream = new BufferedInputStream(toEncode)) {
+	public Map<String, List<String>> encode(InputStream stream) {
+		inQuote = false;
+		try {
 
 			List<String> headers = new LinkedList<>();
 
@@ -38,27 +29,18 @@ public class HeaderedCsvFormatter extends CsvFormatter<Map<String, List<String>>
 
 			int currentChar = stream.read();
 
-			AtomicInteger columns = new AtomicInteger(0),
-					lines = new AtomicInteger(1);
-
-			if(currentChar == -1) {
-				throw new IllegalArgumentException("InputStream passed to");
-			}
+			AtomicInteger columns = new AtomicInteger(1);
 
 			final boolean quotable = quoteChar != null;
-			boolean lineEnd = lineEnd(builder, (char) currentChar);
+			boolean lineEnd = lineEnd(builder, currentChar);
 
 			// While we're in the first row
 			while(inQuote || !lineEnd) {
 
 				if(quotable) {
-					if(currentChar == quoteChar && !inQuote) {
-						inQuote = true;
-					} else {
-						manageQuotableHeaderChar((char)currentChar, builder, headers ,columns);
-					}
+					manageQuotableChar((char)currentChar, builder, headers ,columns, stream);
 				} else {
-					manageHeaderChar((char)currentChar, builder, headers ,columns);
+					manageChar((char)currentChar, builder, headers ,columns, stream);
 				}
 
 				currentChar = stream.read();
@@ -67,38 +49,51 @@ public class HeaderedCsvFormatter extends CsvFormatter<Map<String, List<String>>
 					headers.add(builder.toString());
 					break;
 				} else {
+					lineEnd = lineEnd(builder, currentChar);
 
-					lineEnd = lineEnd(builder, (char) currentChar);
-
-					if(lineEnd) {
+					if(lineEnd && !quotable) {
 						headers.add(builder.toString());
 						builder.setLength(0);
 					}
 				}
 			}
 
-			System.out.println(headers);
+			Map<String, List<String>> values = new HashMap<>();
+			for(String header : headers) values.put(header, new LinkedList<>());
+			String lastHeader = headers.get(headers.size()-1);
+			AtomicInteger lines = new AtomicInteger(1);
+			int selectableRows = maxSelection + skipRows;
+
+			while( maxSelection <= 0 || lines.get() < selectableRows) {
+				if(lines.get() <= skipRows) {
+
+				} else {
+
+				}
+			}
+
+			log.debug(headers.toString());
 
 		} catch (IOException e) {
 			log.error("There was an issue reading a headered CsvStream.", e);
 			throw new RuntimeException(e);
-		} finally {
-			inQuote = false;
-			inQuote = false;
 		}
 
 		return null;
 	}
 
-	private boolean lineEnd(StringBuilder builder, char currentChar) {
-		return currentChar == -1 || (lineSeparator.length() == 1 ? ("" + currentChar)
-				: (builder.substring(builder.length() - lineSeparator.length() + 1) + currentChar))
+	private boolean lineEnd(StringBuilder builder, int currentChar) {
+		return currentChar == -1 || (lineSeparator.length() == 1 ? ("" + ((char)currentChar))
+				: (builder.substring(builder.length() - lineSeparator.length() + 1) + ((char)currentChar)))
 				.equals(lineSeparator);
 	}
 
-	private void manageHeaderChar(char currentChar, StringBuilder builder, List<String> headers, AtomicInteger columns) {
+	private void manageChar(char currentChar, StringBuilder builder, List<String> headers, AtomicInteger columns, InputStream stream) throws IOException {
 
-		if(currentChar == delimiter && !inQuote) {
+		if (currentChar == escapeChar) {
+			builder.append((char)stream.read());
+		} else if(currentChar == delimiter && !inQuote) {
+			columns.incrementAndGet();
 			headers.add(builder.toString());
 			builder.setLength(0);
 		} else {
@@ -107,25 +102,19 @@ public class HeaderedCsvFormatter extends CsvFormatter<Map<String, List<String>>
 
 	}
 
-	private void manageQuotableHeaderChar(char currentChar, StringBuilder builder, List<String> headers, AtomicInteger columns) {
+	private void manageQuotableChar(char currentChar, StringBuilder builder, List<String> headers, AtomicInteger columns, InputStream stream) throws IOException {
 
-		// If we're at a quote char
-		if (currentChar == quoteChar) {
-			System.out.println(currentChar + " equals " + quoteChar);
+		if(currentChar == escapeChar) {
+			// If we care about it
+			if(inQuote){
+				builder.append((char) stream.read());
+			}
+
+		} else if (currentChar == quoteChar) { // If we're at a quote char
 			if(inQuote) { // If we're currently in a quote
-				int previousEscapes = 0;
-				// How many escape chars are there
-				while (builder.charAt(builder.length() - 1 - previousEscapes) == previousEscapes) {
-					previousEscapes++;
-				}
-
-				if ((previousEscapes & 1) == 0) { // This isn't being escaped so we've hit the end of a header
-					inQuote = false;
-					headers.add(builder.toString());
-					builder.setLength(0);
-				} else { // We're being escaped
-					builder.append(currentChar);
-				}
+				inQuote = false;
+				headers.add(builder.toString());
+				builder.setLength(0);
 			} else {
 				if(headers.size() == columns.get()) {
 					throw new IllegalArgumentException("The provided stream contains a multi-value header at column: " + columns + ", line: 1");
@@ -137,9 +126,19 @@ public class HeaderedCsvFormatter extends CsvFormatter<Map<String, List<String>>
 				builder.append(currentChar);
 			} else if(currentChar == delimiter) {
 				columns.incrementAndGet();
+			} else {
+
 			}
 		}
 
+	}
+
+	private int getPreviousEscapes(StringBuilder builder) {
+		int previousEscape = 0;
+
+		while(builder.charAt(builder.length() - 1 - previousEscape) == escapeChar) previousEscape++;
+
+		return previousEscape;
 	}
 
 	@Override
