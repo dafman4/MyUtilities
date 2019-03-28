@@ -105,17 +105,18 @@ public class NoHeaderCsvFormatter extends CsvFormatter<List<List<String>>> {
             try {
                 currentChar = stream.read();
                 if(currentChar == -1) {
-                    if(column == ret.size()-1) addValue(ret, column, builder.toString());
+                    // Don't skimp on it if its only the first row
+                    if(column == ret.size()-1 || ret.get(0).size() <= 1) addValue(ret, column, builder.toString());
                     break;
                 }
             } catch (IOException e) {
-                log.error("An Error occured while reading a value, end of stream?", e);
-                if(column == ret.size()-1) addValue(ret, column, builder.toString());
+                log.error("An Error occurred while reading a value, end of stream?", e);
+                if(column == ret.size()-1 || ret.get(0).size() <= 1) addValue(ret, column, builder.toString());
                 break;
             }
 
             if(lineEnd(lineEnds, currentChar)){
-                if(column == ret.size()-1) addValue(ret, column, builder.toString());
+                if(column == ret.size()-1 || ret.get(0).size() <= 1) addValue(ret, column, builder.toString());
                 column = 0;
                 builder.setLength(0);
             } else {

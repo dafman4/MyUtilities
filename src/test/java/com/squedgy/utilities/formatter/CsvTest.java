@@ -67,7 +67,7 @@ public class CsvTest {
 		while(it.hasNext()){
 			list.add(it.nextValue());
 		}
-		for(String key : list.get(0).keySet()) System.out.println(key + ": " + list.size());
+		for(String key : list.get(0).keySet()) printBig(key, list);
 		afterMillis = System.currentTimeMillis();
 		System.out.println("It took approximately " + (afterMillis - millis) + " milliseconds for jackson to finish the big test!");
 
@@ -81,12 +81,12 @@ public class CsvTest {
 
 	}
 
-	private void printList(String header, List<String> list) {
-		System.out.println(header + ": " + list);
+	private void printList(String header, List list) {
+		System.out.println(String.format("%25s: %s", header, list));
 	}
 
-	private void printBig(String header, List<String> list) {
-		System.out.println(header + ": " + list.size());
+	private void printBig(String header, List list) {
+		System.out.println(String.format("%25s: %d", header, list.size()));
 	}
 
 }
