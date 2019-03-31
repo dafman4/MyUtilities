@@ -21,5 +21,5 @@ public interface Formatter<FormattedType, EncodedType> {
 	 * @param toDecode the EncodedType to decode into an FormattedType
 	 * @return FormattedType instance
 	 */
-	public FormattedType decode(EncodedType toDecode);
+	public FormattedType decode(EncodedType toDecode) throws IOException;
 }

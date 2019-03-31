@@ -42,10 +42,6 @@ public class DateUtilitiesTest {
 		);
 	}
 
-	public String twoDigits(int value){
-		return (value > 9 ? "": "0") + value;
-	}
-
 	@Test
 	public void testLocalDateFails(){
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {

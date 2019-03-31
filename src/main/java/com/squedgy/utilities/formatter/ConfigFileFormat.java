@@ -12,7 +12,7 @@
 
 package com.squedgy.utilities.formatter;
 
-import com.squedgy.utilities.interfaces.FileFormatter;
+import com.squedgy.utilities.interfaces.InputStreamFormatter;
 import org.slf4j.Logger;
 
 import java.io.*;
@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.joining;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -36,7 +35,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  *
  * @author David
  */
-public class ConfigFileFormat implements FileFormatter<Map<String, String>> {
+public class ConfigFileFormat implements InputStreamFormatter<Map<String, String>> {
 
 	private final static Logger log = getLogger(ConfigFileFormat.class);
 
@@ -55,10 +54,13 @@ public class ConfigFileFormat implements FileFormatter<Map<String, String>> {
 
 		StringBuilder builder = new StringBuilder();
 		int c;
+		char ch;
+		boolean reading;
 		while(true) {
 			// Get the next char/byte/etc.
 			try {
 				c = stream.read();
+
 			} catch(IOException e) {
 				log.error("This could potentially by an acceptable error.", e);
 				break;
@@ -69,7 +71,7 @@ public class ConfigFileFormat implements FileFormatter<Map<String, String>> {
 				break;
 			}
 
-			char ch = (char) c;
+			ch = (char) c;
 			// If new line
 			if(ch == '\n') {
 				lines.add(builder.toString());

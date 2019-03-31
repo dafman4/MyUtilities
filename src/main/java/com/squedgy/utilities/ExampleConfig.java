@@ -12,14 +12,14 @@
 
 package com.squedgy.utilities;
 
-import com.squedgy.utilities.interfaces.FileFormatter;
-import com.squedgy.utilities.reader.FileReader;
 import com.squedgy.utilities.error.SeriousException;
-import com.squedgy.utilities.formatter.ConfigFileFormat;
 import com.squedgy.utilities.interfaces.ConfigInformationStrategy;
-import com.squedgy.utilities.interfaces.Formatter;
+import com.squedgy.utilities.interfaces.InputStreamFormatter;
+import com.squedgy.utilities.reader.FileReader;
 
 import java.util.Map;
+
+import static com.squedgy.utilities.interfaces.Formatters.config;
 
 public class ExampleConfig implements ConfigInformationStrategy<String> {
 	/**
@@ -33,15 +33,15 @@ public class ExampleConfig implements ConfigInformationStrategy<String> {
 	/**
 	 * This simply contains the formatting style for whatever file you decide to use with the file reader
 	 */
-	private final FileFormatter<Map<String,String>> FORMAT;
+	private final InputStreamFormatter<Map<String,String>> FORMAT;
 	/**
 	 * Marks file location for the file reader used later
 	 */
 	private final String FILE_LOCATION;
 	
 	private ExampleConfig(){
-		FORMAT = new ConfigFileFormat();
-		FILE_LOCATION = "src/app.properties";
+		FORMAT = config();
+		FILE_LOCATION = "cfg/app.properties";
 		updateProperties();
 	}
 	
@@ -77,7 +77,7 @@ public class ExampleConfig implements ConfigInformationStrategy<String> {
 	private void updateProperties() throws SeriousException{
 		FileReader<Map<String,String>> fr = new FileReader<>(FORMAT);
 		try{
-			properties = fr.read(null);
+			properties = fr.read(FILE_LOCATION);
 		}catch(Exception e){
 			throw new SeriousException("There was an error updating properties!\nPossibly with the file. Has it been tampered with, or was it edited while this was running?");
 		}

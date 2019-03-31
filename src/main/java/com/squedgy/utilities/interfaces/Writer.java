@@ -1,9 +1,6 @@
 
 package com.squedgy.utilities.interfaces;
 
-import com.squedgy.utilities.interfaces.FileFormatter;
-import com.squedgy.utilities.interfaces.Formatter;
-
 import java.io.IOException;
 
 /**

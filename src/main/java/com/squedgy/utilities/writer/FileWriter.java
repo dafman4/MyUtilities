@@ -4,13 +4,11 @@ package com.squedgy.utilities.writer;
 // Author Squedgy
 
 import com.squedgy.utilities.interfaces.Writer;
-import com.squedgy.utilities.interfaces.FileFormatter;
+import com.squedgy.utilities.interfaces.InputStreamFormatter;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.*;
-import java.util.LinkedList;
 
 import static java.nio.file.StandardOpenOption.*;
 
@@ -21,9 +19,9 @@ import static java.nio.file.StandardOpenOption.*;
 public final class FileWriter <WriteType> implements Writer<WriteType, Path>{
 	private boolean append;
 	private String fileLocation;
-	private FileFormatter<WriteType> formatter;
+	private InputStreamFormatter<WriteType> formatter;
 	
-	public FileWriter(String fileLocation, FileFormatter<WriteType> formatter, boolean append){
+	public FileWriter(String fileLocation, InputStreamFormatter<WriteType> formatter, boolean append){
 		setAppending(append);
 		setFileLocation(fileLocation);
 		this.formatter = formatter;
@@ -34,7 +32,7 @@ public final class FileWriter <WriteType> implements Writer<WriteType, Path>{
 		InputStream stream = formatter.encode(writable);
 		byte[] bytes = new byte[stream.available()];
 		stream.read(bytes);
-		Path p = Paths.get(fileLocation);
+		Path p = Paths.get(fileLocation).toAbsolutePath();
 		if(!p.toFile().exists()) {
 			if(!p.getParent().toFile().exists())
 				Files.createDirectories(p.getParent());
@@ -51,7 +49,7 @@ public final class FileWriter <WriteType> implements Writer<WriteType, Path>{
 
 	public void setAppending(boolean append) { this.append = append; }
 
-	public FileFormatter<WriteType> getFormatter() { return formatter; }
+	public InputStreamFormatter<WriteType> getFormatter() { return formatter; }
 
-	public void setFormatter(FileFormatter<WriteType> formatter) { this.formatter = formatter; }
+	public void setFormatter(InputStreamFormatter<WriteType> formatter) { this.formatter = formatter; }
 }
