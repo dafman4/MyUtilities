@@ -15,7 +15,7 @@ public abstract class GenericFactory {
 	 * within this class.
 	 * @param <DynamicClass> the type that you wish to receive back that implement/extends DynamicClassFields
 	 * @param <PropertyKey> the type of the Keys that the ConfigInformationStrategy used uses
-	 * @param config the config file that contains the path to the the object you wish to receive Ex. the property value would be "com.squedgy.utilities.ExampleClass" and the key would be "example"
+	 * @param config the config file that contains the path to the the object you wish to receive Ex. the property value would be "com.squedgy.utilities.examples.ExampleClass" and the key would be "example"
 	 * @param propertyKey an object of type PropertyKey representing the Key that links to the class path within the project
 	 * @return and object of type DynamicClass that has the ability to update it's fields dynamically while the program is running
 	 */

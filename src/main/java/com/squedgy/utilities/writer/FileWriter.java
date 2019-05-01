@@ -5,12 +5,15 @@ package com.squedgy.utilities.writer;
 
 import com.squedgy.utilities.interfaces.Writer;
 import com.squedgy.utilities.interfaces.InputStreamFormatter;
+import org.slf4j.Logger;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.channels.Channels;
 import java.nio.file.*;
+import java.util.Arrays;
 
 import static java.nio.file.StandardOpenOption.*;
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * A Simple file writer that uses any sent formatter to encode and write to a specified file
@@ -20,6 +23,7 @@ public final class FileWriter <WriteType> implements Writer<WriteType, Path>{
 	private boolean append;
 	private String fileLocation;
 	private InputStreamFormatter<WriteType> formatter;
+	private static final Logger log = getLogger(FileWriter.class);
 	
 	public FileWriter(String fileLocation, InputStreamFormatter<WriteType> formatter, boolean append){
 		setAppending(append);
@@ -30,15 +34,18 @@ public final class FileWriter <WriteType> implements Writer<WriteType, Path>{
 	@Override
 	public Path write(WriteType writable) throws IOException {
 		InputStream stream = formatter.encode(writable);
-		byte[] bytes = new byte[stream.available()];
-		stream.read(bytes);
+
 		Path p = Paths.get(fileLocation).toAbsolutePath();
 		if(!p.toFile().exists()) {
 			if(!p.getParent().toFile().exists())
 				Files.createDirectories(p.getParent());
 			Files.createFile(p);
 		}
-		return Files.write(Paths.get(fileLocation), bytes, WRITE, append ? APPEND : TRUNCATE_EXISTING);
+		FileOutputStream output = new FileOutputStream(p.toFile());
+
+
+		output.getChannel().transferFrom(Channels.newChannel(stream) , 0, stream.available());
+		return p;
 	}
 
 	public String getFileLocation() { return fileLocation; }
