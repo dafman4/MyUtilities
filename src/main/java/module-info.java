@@ -1,6 +1,6 @@
 module com.squedgy.utilities {
 
-	requires org.slf4j;
+	requires transitive org.slf4j;
 
 	exports com.squedgy.utilities;
 	exports com.squedgy.utilities.formatter;

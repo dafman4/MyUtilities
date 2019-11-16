@@ -22,7 +22,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.squedgy'
             artifactId = 'my-utilities'
-            version = '1.2'
+            version = '1.4'
 
             from components.java
         }
@@ -32,7 +32,7 @@ publishing {
 ext.moduleName = 'com.squedgy.utilities'
 
 group 'com.squedgy'
-version '1.2'
+version '1.4'
 
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
@@ -108,9 +108,4 @@ jar {
 
     baseName = project.name + '-mmm'
     version = version
-    from {
-        configurations.runtimeClasspath.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
 }
