@@ -3,7 +3,7 @@ package com.squedgy.utilities;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static java.util.Map.of;
+import static com.squedgy.utilities.maps.MapUtils.of;
 import static java.util.stream.Collectors.toMap;
 
 public abstract class EscapedChars {

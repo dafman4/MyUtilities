@@ -31,12 +31,12 @@ public abstract class GenericFactory {
 	
 	/**
 	 * This method returns an object with the fully qualified name className then attempts to cast that to
-	 * Type <DynamicClass> returning the generated class,casted to DynamicClass, there needs to be a constructor with 0
+	 * Type &lt;DynamicClass&gt; returning the generated class,casted to DynamicClass, there needs to be a constructor with 0
 	 * arguments for the generated class as well.
 	 * @param <ObjectType> the type that you want the generated object to be
 	 * @param className the fully qualified name of the object being generated
-	 * @return class <className> of type <DynamicClass>
-	 * @throws Exception if there is an issue with the fully qualified name, or casting to &ls;ObjectType>
+	 * @return class &lt;className&gt; of type &lt;DynamicClass&gt;
+	 * @throws Exception if there is an issue with the fully qualified name, or casting to &lt;ObjectType&gt;
 	 */
 	public static <ObjectType> ObjectType getObject(String className)throws Exception{
 		Class<ObjectType> clazz = (Class<ObjectType>) Class.forName(className);

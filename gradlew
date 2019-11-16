@@ -12,8 +12,8 @@ PRG="$0"
 # Need this for relative symlinks.
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
-    link=`expr "$ls" : '.*-> \(.*\)$'`
-    if expr "$link" : '/.*' > /dev/null; then
+    link=`expr "$ls" : '.*-&gt; \(.*\)$'`
+    if expr "$link" : '/.*' &gt; /dev/null; then
         PRG="$link"
     else
         PRG=`dirname "$PRG"`"/$link"

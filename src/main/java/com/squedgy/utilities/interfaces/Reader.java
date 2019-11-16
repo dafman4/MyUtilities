@@ -17,9 +17,9 @@ public interface Reader <WriteType, ReadType>{
 
 
 	/**
-	 *Accepts a <ReadType> and creates a <WriteType> depending on circumstance this could be something external
+	 *Accepts a &lt;ReadType&gt; and creates a &lt;WriteType&gt; depending on circumstance this could be something external
 	 *That doesn't actually change return anything
-	 *@return a list of <WriteType> read from somewhere or something
+	 *@return a list of &lt;WriteType&gt; read from somewhere or something
 	 */
 	public abstract WriteType read(ReadType toRead) throws IOException;
 

@@ -17,7 +17,7 @@ public interface Writer<WriteType, ReadType> {
 	/**
 	 * Writes to something specified by the implementation.
 	 * 
-	 * @param toWrite an object of type <WriteType> that the writer writes values from
+	 * @param toWrite an object of type &lt;WriteType&gt; that the writer writes values from
 	 * @return ReadType returns an instance of the ReadType
 	 */
 	public abstract ReadType write(WriteType toWrite) throws IOException;
