@@ -6,26 +6,15 @@ plugins {
     id 'java'
     id 'java-library'
     id 'maven-publish'
-    id 'signing'
 }
 
 dependencies{
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.4.1'
 
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.8.0-beta4'
     testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.3.0-alpha4'
     testImplementation group: "com.fasterxml.jackson.dataformat", name: 'jackson-dataformat-csv', version: '2.9.0'
 
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    classifier = 'sources'   
-}
-
-task javadocJar(type: Jar) {
-    from javadoc
-    classifier = 'javadoc'
 }
 
 publishing {
@@ -33,29 +22,20 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.squedgy'
             artifactId = 'my-utilities'
-            version = '1.0'
-            artifact sourcesJar
-            artifact javadocJar
-            // pom {
-            //     name = 'Utilities'
-            // }
+            version = '1.2'
 
             from components.java
         }
     }
 }
 
-// signing {
-//     sign publishing.publications.mavenJava
-// }
-
 ext.moduleName = 'com.squedgy.utilities'
 
 group 'com.squedgy'
-version '1.1'
+version '1.2'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -69,62 +49,62 @@ def moduleExists = {
     return check != null && check != ''
 }
 
-// compileJava {
-//     if(!moduleExists()) {
-//         throw new IllegalArgumentException("Module Name is NOT declared in properties for " + project.name)
-//     }
-//     inputs.property("moduleName", moduleName)
-//     doFirst {
-//         options.compilerArgs = [
-//                 '--module-path', classpath.asPath,
-//         ]
-//         classpath = files()
-//     }
-// }
+compileJava {
+    if(!moduleExists()) {
+        throw new IllegalArgumentException("Module Name is NOT declared in properties for " + project.name)
+    }
+    inputs.property("moduleName", moduleName)
+    doFirst {
+        options.compilerArgs = [
+                '--module-path', classpath.asPath,
+        ]
+        classpath = files()
+    }
+}
 
-// compileTestJava {
-//     if(!moduleExists()) {
-//         throw new IllegalArgumentException("Module Name is NOT declared in properties")
-//     }
-//     inputs.property('moduleName', moduleName)
-//     doFirst {
-//         options.compilerArgs = [
-//                 '--module-path' , classpath.asPath,
-//                 '--add-modules', 'org.junit.jupiter.api',
-//                 '--add-reads', "${moduleName}=org.junit.jupiter.api",
-//                 '--patch-module', "${moduleName}=" + files(sourceSets.test.java.srcDirs).asPath
-//         ]
-//         classpath = files()
-//     }
-// }
+compileTestJava {
+    if(!moduleExists()) {
+        throw new IllegalArgumentException("Module Name is NOT declared in properties")
+    }
+    inputs.property('moduleName', moduleName)
+    doFirst {
+        options.compilerArgs = [
+                '--module-path' , classpath.asPath,
+                '--add-modules', 'org.junit.jupiter.api',
+                '--add-reads', "${moduleName}=org.junit.jupiter.api",
+                '--patch-module', "${moduleName}=" + files(sourceSets.test.java.srcDirs).asPath
+        ]
+        classpath = files()
+    }
+}
 
 test {
     useJUnitPlatform()
-    // if(!moduleExists()) {
-    //     throw new IllegalArgumentException("Module Name is NOT declared in properties")
-    // }
-    // inputs.property("moduleName", moduleName)
-    // testLogging {
-    //     events 'passed', 'skipped', 'failed'
-    // }
-    // doFirst {
-    //     jvmArgs = [
-    //             '--module-path', classpath.asPath,
-    //             '--add-modules', 'ALL-MODULE-PATH',
-    //             '--add-reads', "$moduleName=org.junit.jupiter.api",
-    //             '--patch-module', "$moduleName=${files(sourceSets.test.java.outputDir).asPath}:${project.buildDir.toPath().resolve("resources").resolve("test").toAbsolutePath()}"
-    //     ]
-    //     classpath = files()
-    // }
+    if(!moduleExists()) {
+        throw new IllegalArgumentException("Module Name is NOT declared in properties")
+    }
+    inputs.property("moduleName", moduleName)
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+    doFirst {
+        jvmArgs = [
+                '--module-path', classpath.asPath,
+                '--add-modules', 'ALL-MODULE-PATH',
+                '--add-reads', "$moduleName=org.junit.jupiter.api",
+                '--patch-module', "$moduleName=${files(sourceSets.test.java.outputDir).asPath}:${project.buildDir.toPath().resolve("resources").resolve("test").toAbsolutePath()}"
+        ]
+        classpath = files()
+    }
 }
 
 jar {
     baseName = 'my-utilities'
     version = '0.0.1-SNAPSHOT'
-    // manifest.attributes(
-    //         provider: 'gradle',
-    //         'Automatic-Module-Name': moduleName
-    // )
+    manifest.attributes(
+            provider: 'gradle',
+            'Automatic-Module-Name': moduleName
+    )
 
     baseName = project.name + '-mmm'
     version = version
